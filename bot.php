@@ -1,6 +1,5 @@
 <?php
 include 'config.php';
-include 'ZermeloRoosterPHP/rooster.php';
 
 $getUpdates = $website.'getUpdates';
 
