@@ -1,3 +1,4 @@
 [submodule "ZermeloRoosterPHP"]
 	path = ZermeloRoosterPHP
 	url = git://github.com/wvanbreukelen/ZermeloRoosterPHP.git
+	ignore = dirty
