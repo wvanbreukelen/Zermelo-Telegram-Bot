@@ -1,5 +1,11 @@
 <?php
-include 'config.php';
+require 'config.php';
+require 'custom_autoload.php';
+
+date_default_timezone_set("Europe/Amsterdam");
+
+register_zermelo_api();
+$zermelo = new ZermeloAPI('candea');
 
 $getUpdates = $website.'getUpdates';
 
@@ -13,7 +19,11 @@ while(1){
 	$message = strtolower(getMessage($result));
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
-
+	$ifGroup = getIfGroup($result);
+	$length = strlen((string)$message);
+	
+	$leerlingnummer = "leerlingnummers/".$userId.".txt";
+	
 	$offset++;
 	file_get_contents($getUpdates.'?offset='.$offset);
 
@@ -27,7 +37,43 @@ while(1){
 				print_r("Bot herstarten...\n");
 				exit(2);
 			} else {
-				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", $messageId);
+				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", null);
+			}
+		break;
+		case $message == "/registreer":
+			sendMessage($chatId, "Stuur eerst je leerlingnummer (die zal gekoppeld worden aan je Telegram ID) en dan de appcode van Zermelo.", null);
+		break;
+		
+// 		Registratie:
+		case (ctype_digit($message) == true && $length == 6):
+			if (file_exists("leerlingnummers/".$userId.".txt")){
+				$content = file($leerlingnummer);
+				if ($content[0] == $message || $content[0] == $message."\n"){
+					sendMessage($chatId, "Je bent al geregistreerd!", $messageId);
+				} else {
+					unlink($leerlingnummer);
+					$fp = fopen($leerlingnummer, "w");
+					fwrite($fp, $message."\n");
+					fclose($fp);
+					sendMessage($chatId, "Je leerlingnummer is veranderd, stuur de Zermelo appcode (opnieuw) (Koppelingen > Koppel App).", $messageId);
+				}
+			} else {
+				$fp = fopen($leerlingnummer, "w");
+				fwrite($fp, $message."\n");
+				fclose($fp);
+				sendMessage($chatId, "Je leerlingnummer is succesvol aan je Telegram ID gekoppeld, stuur nu de appcode van Zermelo (Koppelingen > Koppel App). Stuur een ander leerlingnummer mocht je je leerlingnummer willen veranderen.", $messageId);
+			}
+		break;
+		case (ctype_digit($message) == true && $length == 12):
+			$content = file($leerlingnummer);
+			unset($content[1]);
+			$content[1] = $message;
+			file_put_contents($leerlingnummer, implode("", $content));
+			try {
+				$zermelo->grabAccessToken($content[0], $content[1]);
+				sendMessage($chatId, "Je leerlingnummer en appcode zijn opgeslagen! Later zul je je eigen rooster op kunnen vragen met /rooster.", $messageId);
+			} catch (Exception $e) {
+				sendMessage($chatId, "Er is iets fout gegaan, probeer het nog een keer met een nieuwe code.", $messageId);
 			}
 		break;
 		
@@ -62,9 +108,6 @@ while(1){
 		case $message == "killua":
 			sendMessage($chatId, "Assassin", $messageId);
 		break;
-		case stripos($message, "merkoot") !== false:
-			sendPhoto($chatId, "AgADBAADr6cxG1ywgAfKzkLkAurv70a0YzAABPe7ZrflteT_CWcBAAEC", null, $messageId);
-		break;
 		case $message == "muramasa":
 			sendSticker($chatId, "BQADBAADBAoAApesNQABuh8VOZKFxWMC", $messageId);
 		break;
@@ -73,37 +116,63 @@ while(1){
 
 
 function getOffset(&$array){
-	$offset = end($array);
-	$offset = end($offset);
-	return $offset['update_id'];
+	if ($array != null){
+		$offset = end($array);
+		$offset = end($offset);
+		return $offset['update_id'];
+	}
 }
 
 function getChatId(&$array){
-	$chatId = end($array);
-	$chatId = end($chatId);
-	return $chatId['message']['chat']['id'];
+	if ($array != null){
+		$chatId = end($array);
+		$chatId = end($chatId);
+		return $chatId['message']['chat']['id'];
+	}
 }
 
 function getMessage(&$array){
-	$message = end($array);
-	$message = end($message);
-	if(isset($message['message']['text'])){
-		return $message['message']['text'];
+	if ($array != null){
+		$message = end($array);
+		$message = end($message);
+		if(isset($message['message']['text'])){
+			return $message['message']['text'];
+		}
 	}
 }
 
 function getMessageId($array){
-	$messageId = end($array);
-	$messageId = end($messageId);
-	if(isset($messageId['message']['message_id'])){
-		return $messageId['message']['message_id'];
+	if ($array != null){
+		$messageId = end($array);
+		$messageId = end($messageId);
+		if(isset($messageId['message']['message_id'])){
+			return $messageId['message']['message_id'];
+		}
 	}
 }
 
 function getUserId($array){
-	$userId = end($array);
-	$userId = end($userId);
-	return $userId['message']['from']['id'];
+	if ($array != null){
+		$userId = end($array);
+		$userId = end($userId);
+		return $userId['message']['from']['id'];
+	}
+}
+
+function getIfGroup($array){
+	if ($array != null){
+		$group = end($array);
+		$group = end($group);
+		if(isset($group['message']['chat']['title'])){
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+function registreer($leerlingnummer){
+	
 }
 
 function sendMessage($id, $message, $reply){
