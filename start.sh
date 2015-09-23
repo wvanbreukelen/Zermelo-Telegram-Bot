@@ -5,7 +5,7 @@ while [ $code -eq "2" ]
 
 do
 
-php5 bot.php
+php bot.php
 
 code=$?
 
