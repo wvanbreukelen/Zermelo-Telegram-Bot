@@ -4,6 +4,8 @@ require 'custom_autoload.php';
 
 date_default_timezone_set("Europe/Amsterdam");
 
+$datum_nu = date('d/m/Y', time());
+
 register_zermelo_api();
 $zermelo = new ZermeloAPI('candea');
 
@@ -22,7 +24,7 @@ while(1){
 	$ifGroup = getIfGroup($result);
 	$length = strlen((string)$message);
 	
-	$leerlingnummer = "leerlingnummers/".$userId.".txt";
+	$file = "leerlingnummers/".$userId.".txt";
 	
 	$offset++;
 	file_get_contents($getUpdates.'?offset='.$offset);
@@ -47,28 +49,28 @@ while(1){
 // 		Registratie:
 		case (ctype_digit($message) == true && $length == 6):
 			if (file_exists("leerlingnummers/".$userId.".txt")){
-				$content = file($leerlingnummer);
+				$content = file($file);
 				if ($content[0] == $message || $content[0] == $message."\n"){
 					sendMessage($chatId, "Je bent al geregistreerd!", $messageId);
 				} else {
-					unlink($leerlingnummer);
-					$fp = fopen($leerlingnummer, "w");
+					unlink($file);
+					$fp = fopen($file, "w");
 					fwrite($fp, $message."\n");
 					fclose($fp);
 					sendMessage($chatId, "Je leerlingnummer is veranderd, stuur de Zermelo appcode (opnieuw) (Koppelingen > Koppel App).", $messageId);
 				}
 			} else {
-				$fp = fopen($leerlingnummer, "w");
+				$fp = fopen($file, "w");
 				fwrite($fp, $message."\n");
 				fclose($fp);
 				sendMessage($chatId, "Je leerlingnummer is succesvol aan je Telegram ID gekoppeld, stuur nu de appcode van Zermelo (Koppelingen > Koppel App). Stuur een ander leerlingnummer mocht je je leerlingnummer willen veranderen.", $messageId);
 			}
 		break;
 		case (ctype_digit($message) == true && $length == 12):
-			$content = file($leerlingnummer);
+			$content = file($file);
 			unset($content[1]);
 			$content[1] = $message;
-			file_put_contents($leerlingnummer, implode("", $content));
+			file_put_contents($file, implode("", $content));
 			try {
 				$zermelo->grabAccessToken($content[0], $content[1]);
 				sendMessage($chatId, "Je leerlingnummer en appcode zijn opgeslagen! Later zul je je eigen rooster op kunnen vragen met /rooster.", $messageId);
@@ -77,6 +79,45 @@ while(1){
 			}
 		break;
 		
+//		Rooster opvragen:
+
+		case $message == "/rooster":
+			$content = file($file);
+			$leerlingnummer = $content[0];
+			try {
+				$rooster = $zermelo->getStudentGrid($content[0]);
+				
+				$vakken = array();
+				$docenten = array();
+				$lokalen = array();
+				$datums = array();
+				$data = array();
+				
+				foreach($rooster as $subArray) {
+					$vakken[] = $subArray['subjects'][0];
+					$docenten[] = $subArray['teachers'][0];
+					$lokalen[] = $subArray['locations'][0];
+					$datums[] = $subArray['start_date'];
+				}
+				
+				$mi = new MultipleIterator();
+				$mi->attachIterator(new ArrayIterator($vakken));
+				$mi->attachIterator(new ArrayIterator($docenten));
+				$mi->attachIterator(new ArrayIterator($lokalen));
+				$mi->attachIterator(new ArrayIterator($datums));
+				
+				foreach ($mi as $value) {
+					list($vak, $docent, $lokaal, $datum) = $value;
+					if (substr($datum, 0, 10) == $datum_nu){
+						$data[] = strtoupper($vak).' - '.strtoupper($docent).' - '.$lokaal;
+					}
+				}
+				$data = implode("\n", $data);
+				sendMessage($chatId, "Rooster van vandaag:\n".$data, null);
+			} catch (Exception $e){
+				sendMessage($chatId, "Het ophalen van je rooster is niet gelukt, probeer het later nog een keer of stuur een nieuwe appcode.", $messageId);
+			}
+		break;
 // 		Wat simpele reacties toegevoegd op verzoek van wat vrienden.
 		case ($message == "mondo"):
 			sendMessage($chatId, "Oowada", $messageId);
@@ -171,14 +212,10 @@ function getIfGroup($array){
 	}
 }
 
-function registreer($leerlingnummer){
-	
-}
-
 function sendMessage($id, $message, $reply){
 	global $website;
 	file_get_contents($website."sendChatAction?chat_id=".$id."&action=typing");
-	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$id."&text=".$message."&reply_to_message_id=".$reply);
+	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$id."&text=".urlencode($message)."&reply_to_message_id=".$reply);
 }
 
 function sendPhoto($id, $photo, $caption, $reply){
