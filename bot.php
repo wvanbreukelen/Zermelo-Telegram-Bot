@@ -4,7 +4,7 @@ require 'custom_autoload.php';
 
 date_default_timezone_set("Europe/Amsterdam");
 
-$datum_nu = date('d/m/Y', time());
+$date = date('d/m/Y', time());
 
 register_zermelo_api();
 $zermelo = new ZermeloAPI('candea');
@@ -84,38 +84,45 @@ while(1){
 		case $message == "/rooster":
 			$content = file($file);
 			$leerlingnummer = $content[0];
-			try {
-				$rooster = $zermelo->getStudentGrid($content[0]);
-				
-				$vakken = array();
-				$docenten = array();
-				$lokalen = array();
-				$datums = array();
-				$data = array();
-				
-				foreach($rooster as $subArray) {
-					$vakken[] = $subArray['subjects'][0];
-					$docenten[] = $subArray['teachers'][0];
-					$lokalen[] = $subArray['locations'][0];
-					$datums[] = $subArray['start_date'];
-				}
-				
-				$mi = new MultipleIterator();
-				$mi->attachIterator(new ArrayIterator($vakken));
-				$mi->attachIterator(new ArrayIterator($docenten));
-				$mi->attachIterator(new ArrayIterator($lokalen));
-				$mi->attachIterator(new ArrayIterator($datums));
-				
-				foreach ($mi as $value) {
-					list($vak, $docent, $lokaal, $datum) = $value;
-					if (substr($datum, 0, 10) == $datum_nu){
-						$data[] = strtoupper($vak).' - '.strtoupper($docent).' - '.$lokaal;
+			if (file_exists($file)){
+				try {
+					$rooster = $zermelo->getStudentGrid($content[0]);
+					
+					$subjects = array();
+					$teachers = array();
+					$locations = array();
+					$start = array();
+					$end = array();
+					$data = array();
+					
+					foreach($rooster as $subArray) {
+						$subjects[] = $subArray['subjects'][0];
+						$teachers[] = $subArray['teachers'][0];
+						$locations[] = $subArray['locations'][0];
+						$start[] = $subArray['start_date'];
+						$end[] = $subArray['end_date'];
 					}
+					
+					$mi = new MultipleIterator();
+					$mi->attachIterator(new ArrayIterator($subjects));
+					$mi->attachIterator(new ArrayIterator($teachers));
+					$mi->attachIterator(new ArrayIterator($locations));
+					$mi->attachIterator(new ArrayIterator($start));
+					$mi->attachIterator(new ArrayIterator($end));
+					
+					foreach ($mi as $value) {
+						list($subject, $teacher, $location, $start, $end) = $value;
+						if (substr($start, 0, 10) == $date){
+							$data[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+						}
+					}
+					$data = implode("\n", $data);
+					sendMessage($chatId, "Jouw rooster van vandaag:\n".$data, $messageId);
+				} catch (Exception $e){
+					sendMessage($chatId, "Het ophalen van je rooster is niet gelukt, probeer het later nog een keer of stuur een nieuwe appcode.", $messageId);
 				}
-				$data = implode("\n", $data);
-				sendMessage($chatId, "Rooster van vandaag:\n".$data, null);
-			} catch (Exception $e){
-				sendMessage($chatId, "Het ophalen van je rooster is niet gelukt, probeer het later nog een keer of stuur een nieuwe appcode.", $messageId);
+			} else {
+				sendMessage($chatId, "Je bent nog niet geregistreerd! /registreer voor meer informatie.", $messageId);
 			}
 		break;
 // 		Wat simpele reacties toegevoegd op verzoek van wat vrienden.
@@ -212,22 +219,22 @@ function getIfGroup($array){
 	}
 }
 
-function sendMessage($id, $message, $reply){
+function sendMessage($chatId, $message, $messageId){
 	global $website;
-	file_get_contents($website."sendChatAction?chat_id=".$id."&action=typing");
-	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$id."&text=".urlencode($message)."&reply_to_message_id=".$reply);
+	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$chatId."&text=".urlencode($message)."&reply_to_message_id=".$messageId);
 }
 
-function sendPhoto($id, $photo, $caption, $reply){
+function sendPhoto($chatId, $photo, $caption, $messageId){
 	global $website;
-	file_get_contents($website."sendChatAction?chat_id=".$id."&action=typing");
-	$sendPhoto = $website."sendPhoto?chat_id=".$id."&photo=".$photo."&caption=".$caption."&reply_to_message_id=".$reply;
+	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	$sendPhoto = $website."sendPhoto?chat_id=".$chatId."&photo=".$photo."&caption=".$caption."&reply_to_message_id=".$messageId;
 	file_get_contents($sendPhoto);
 }
 
-function sendSticker($id, $sticker, $reply){
+function sendSticker($chatId, $sticker, $messageId){
 	global $website;
-	file_get_contents($website."sendChatAction?chat_id=".$id."&action=typing");
-	$sendSticker = $website."sendSticker?chat_id=".$id."&sticker=".$sticker."&reply_to_message_id=".$reply;
+	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	$sendSticker = $website."sendSticker?chat_id=".$chatId."&sticker=".$sticker."&reply_to_message_id=".$messageId;
 	file_get_contents($sendSticker);
 }
