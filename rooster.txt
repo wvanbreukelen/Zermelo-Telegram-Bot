@@ -1,0 +1,1949 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 78465
+            [start] => 1442210400
+            [end] => 1442213100
+            [subjects] => Array
+                (
+                    [0] => en
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bs
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s002
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 1
+            [endTimeSlot] => 1
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7209
+            [new] => 
+            [start_date] => 14/09/2015 8:00
+            [end_date] => 14/09/2015 8:45
+            [hour] => -1
+        )
+
+    [1] => Array
+        (
+            [id] => 78466
+            [start] => 1442213100
+            [end] => 1442215800
+            [subjects] => Array
+                (
+                    [0] => fa
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bnm
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s001
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7210
+            [new] => 
+            [start_date] => 14/09/2015 8:45
+            [end_date] => 14/09/2015 9:30
+            [hour] => 2
+        )
+
+    [2] => Array
+        (
+            [id] => 78467
+            [start] => 1442215800
+            [end] => 1442218500
+            [subjects] => Array
+                (
+                    [0] => lo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => vo
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => sg3
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7211
+            [new] => 
+            [start_date] => 14/09/2015 9:30
+            [end_date] => 14/09/2015 10:15
+            [hour] => 2
+        )
+
+    [3] => Array
+        (
+            [id] => 78468
+            [start] => 1442219700
+            [end] => 1442222400
+            [subjects] => Array
+                (
+                    [0] => lo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => vo
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => sg3
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 4
+            [endTimeSlot] => 4
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7212
+            [new] => 
+            [start_date] => 14/09/2015 10:35
+            [end_date] => 14/09/2015 11:20
+            [hour] => 2
+        )
+
+    [4] => Array
+        (
+            [id] => 78469
+            [start] => 1442223000
+            [end] => 1442225700
+            [subjects] => Array
+                (
+                    [0] => ne
+                )
+
+            [teachers] => Array
+                (
+                    [0] => st
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv201
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 5
+            [endTimeSlot] => 5
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7213
+            [new] => 
+            [start_date] => 14/09/2015 11:30
+            [end_date] => 14/09/2015 12:15
+            [hour] => 3
+        )
+
+    [5] => Array
+        (
+            [id] => 78464
+            [start] => 1442227500
+            [end] => 1442230200
+            [subjects] => Array
+                (
+                    [0] => la
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bgw
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.la1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv210
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 6
+            [endTimeSlot] => 6
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7207
+            [new] => 
+            [start_date] => 14/09/2015 12:45
+            [end_date] => 14/09/2015 13:30
+            [hour] => 4
+        )
+
+    [6] => Array
+        (
+            [id] => 78463
+            [start] => 1442230200
+            [end] => 1442232900
+            [subjects] => Array
+                (
+                    [0] => gr
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bgw
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.gr1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv210
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 7
+            [endTimeSlot] => 7
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784181
+            [lastModified] => 1441784181
+            [hidden] => 
+            [appointmentInstance] => 7206
+            [new] => 
+            [start_date] => 14/09/2015 13:30
+            [end_date] => 14/09/2015 14:15
+            [hour] => 5
+        )
+
+    [7] => Array
+        (
+            [id] => 79144
+            [start] => 1442297400
+            [end] => 1442300100
+            [subjects] => Array
+                (
+                    [0] => la
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bgw
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.la1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv210
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 1
+            [endTimeSlot] => 1
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7885
+            [new] => 
+            [start_date] => 15/09/2015 8:10
+            [end_date] => 15/09/2015 8:55
+            [hour] => 2
+        )
+
+    [8] => Array
+        (
+            [id] => 79151
+            [start] => 1442300100
+            [end] => 1442302800
+            [subjects] => Array
+                (
+                    [0] => te
+                )
+
+            [teachers] => Array
+                (
+                    [0] => dr
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.te2
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv118
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7892
+            [new] => 
+            [start_date] => 15/09/2015 8:55
+            [end_date] => 15/09/2015 9:40
+            [hour] => 2
+        )
+
+    [9] => Array
+        (
+            [id] => 79142
+            [start] => 1442302800
+            [end] => 1442305500
+            [subjects] => Array
+                (
+                    [0] => gr
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bgw
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.gr1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv210
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7883
+            [new] => 
+            [start_date] => 15/09/2015 9:40
+            [end_date] => 15/09/2015 10:25
+            [hour] => 2
+        )
+
+    [10] => Array
+        (
+            [id] => 79146
+            [start] => 1442306700
+            [end] => 1442309400
+            [subjects] => Array
+                (
+                    [0] => na
+                )
+
+            [teachers] => Array
+                (
+                    [0] => wa
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.na1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv013
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 4
+            [endTimeSlot] => 4
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7887
+            [new] => 
+            [start_date] => 15/09/2015 10:45
+            [end_date] => 15/09/2015 11:30
+            [hour] => 2
+        )
+
+    [11] => Array
+        (
+            [id] => 79152
+            [start] => 1442309400
+            [end] => 1442312100
+            [subjects] => Array
+                (
+                    [0] => du
+                )
+
+            [teachers] => Array
+                (
+                    [0] => grk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv205
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 5
+            [endTimeSlot] => 5
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7893
+            [new] => 
+            [start_date] => 15/09/2015 11:30
+            [end_date] => 15/09/2015 12:15
+            [hour] => 3
+        )
+
+    [12] => Array
+        (
+            [id] => 79148
+            [start] => 1442316600
+            [end] => 1442319300
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv014
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 7
+            [endTimeSlot] => 7
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7889
+            [new] => 
+            [start_date] => 15/09/2015 13:30
+            [end_date] => 15/09/2015 14:15
+            [hour] => 5
+        )
+
+    [13] => Array
+        (
+            [id] => 79149
+            [start] => 1442320500
+            [end] => 1442323200
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv014
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 8
+            [endTimeSlot] => 8
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7890
+            [new] => 
+            [start_date] => 15/09/2015 14:35
+            [end_date] => 15/09/2015 15:20
+            [hour] => 6
+        )
+
+    [14] => Array
+        (
+            [id] => 79143
+            [start] => 1442323200
+            [end] => 1442325900
+            [subjects] => Array
+                (
+                    [0] => kwt
+                )
+
+            [teachers] => Array
+                (
+                    [0] => sk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.kwt1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv209
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 9
+            [endTimeSlot] => 9
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784189
+            [lastModified] => 1441784189
+            [hidden] => 
+            [appointmentInstance] => 7884
+            [new] => 
+            [start_date] => 15/09/2015 15:20
+            [end_date] => 15/09/2015 16:05
+            [hour] => 7
+        )
+
+    [15] => Array
+        (
+            [id] => 79795
+            [start] => 1442383800
+            [end] => 1442386500
+            [subjects] => Array
+                (
+                    [0] => na
+                )
+
+            [teachers] => Array
+                (
+                    [0] => wa
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.na1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv013
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 1
+            [endTimeSlot] => 1
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 8539
+            [new] => 
+            [start_date] => 16/09/2015 8:10
+            [end_date] => 16/09/2015 8:55
+            [hour] => 2
+        )
+
+    [16] => Array
+        (
+            [id] => 79800
+            [start] => 1442386500
+            [end] => 1442389200
+            [subjects] => Array
+                (
+                    [0] => mt
+                )
+
+            [teachers] => Array
+                (
+                    [0] => st
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv201
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 9189
+            [new] => 
+            [start_date] => 16/09/2015 8:55
+            [end_date] => 16/09/2015 9:40
+            [hour] => 2
+        )
+
+    [17] => Array
+        (
+            [id] => 84106
+            [start] => 1442389800
+            [end] => 1442392500
+            [subjects] => Array
+                (
+                    [0] => sk
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bsm
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s212
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => Het lokaal is gewijzigd naar S207.
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1442323076
+            [lastModified] => 1442323076
+            [hidden] => 
+            [appointmentInstance] => 8544
+            [new] => 
+            [start_date] => 16/09/2015 9:50
+            [end_date] => 16/09/2015 10:35
+            [hour] => 2
+        )
+
+    [18] => Array
+        (
+            [id] => 79798
+            [start] => 1442392500
+            [end] => 1442395200
+            [subjects] => Array
+                (
+                    [0] => du
+                )
+
+            [teachers] => Array
+                (
+                    [0] => grk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s003
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 4
+            [endTimeSlot] => 4
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 7208
+            [new] => 
+            [start_date] => 16/09/2015 10:35
+            [end_date] => 16/09/2015 11:20
+            [hour] => 2
+        )
+
+    [19] => Array
+        (
+            [id] => 79803
+            [start] => 1442395200
+            [end] => 1442397900
+            [subjects] => Array
+                (
+                    [0] => en
+                )
+
+            [teachers] => Array
+                (
+                    [0] => wn
+                    [1] => kra
+                    [2] => bs
+                    [3] => uf
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3b
+                    [1] => v3c
+                    [2] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s002
+                    [1] => s107
+                    [2] => s103
+                    [3] => s001
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 5
+            [endTimeSlot] => 5
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 8546
+            [new] => 
+            [start_date] => 16/09/2015 11:20
+            [end_date] => 16/09/2015 12:05
+            [hour] => 3
+        )
+
+    [20] => Array
+        (
+            [id] => 79802
+            [start] => 1442402100
+            [end] => 1442404800
+            [subjects] => Array
+                (
+                    [0] => wi
+                )
+
+            [teachers] => Array
+                (
+                    [0] => sk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s210
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 7
+            [endTimeSlot] => 7
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 8545
+            [new] => 
+            [start_date] => 16/09/2015 13:15
+            [end_date] => 16/09/2015 14:00
+            [hour] => 5
+        )
+
+    [21] => Array
+        (
+            [id] => 79799
+            [start] => 1442404800
+            [end] => 1442407500
+            [subjects] => Array
+                (
+                    [0] => fa
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bnm
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s001
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 8
+            [endTimeSlot] => 8
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 8542
+            [new] => 
+            [start_date] => 16/09/2015 14:00
+            [end_date] => 16/09/2015 14:45
+            [hour] => 6
+        )
+
+    [22] => Array
+        (
+            [id] => 79797
+            [start] => 1442407500
+            [end] => 1442410200
+            [subjects] => Array
+                (
+                    [0] => bi
+                )
+
+            [teachers] => Array
+                (
+                    [0] => dd
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s203
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 9
+            [endTimeSlot] => 9
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784197
+            [lastModified] => 1441784197
+            [hidden] => 
+            [appointmentInstance] => 8541
+            [new] => 
+            [start_date] => 16/09/2015 14:45
+            [end_date] => 16/09/2015 15:30
+            [hour] => 6
+        )
+
+    [23] => Array
+        (
+            [id] => 80460
+            [start] => 1442469600
+            [end] => 1442472300
+            [subjects] => Array
+                (
+                    [0] => wi
+                )
+
+            [teachers] => Array
+                (
+                    [0] => sk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s201
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 1
+            [endTimeSlot] => 1
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9191
+            [new] => 
+            [start_date] => 17/09/2015 8:00
+            [end_date] => 17/09/2015 8:45
+            [hour] => -1
+        )
+
+    [24] => Array
+        (
+            [id] => 80459
+            [start] => 1442472300
+            [end] => 1442475000
+            [subjects] => Array
+                (
+                    [0] => sk
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bsm
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s206
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9190
+            [new] => 
+            [start_date] => 17/09/2015 8:45
+            [end_date] => 17/09/2015 9:30
+            [hour] => 2
+        )
+
+    [25] => Array
+        (
+            [id] => 80457
+            [start] => 1442475000
+            [end] => 1442477700
+            [subjects] => Array
+                (
+                    [0] => gs
+                )
+
+            [teachers] => Array
+                (
+                    [0] => lg
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s108
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9188
+            [new] => 
+            [start_date] => 17/09/2015 9:30
+            [end_date] => 17/09/2015 10:15
+            [hour] => 2
+        )
+
+    [26] => Array
+        (
+            [id] => 80456
+            [start] => 1442478900
+            [end] => 1442481600
+            [subjects] => Array
+                (
+                    [0] => en
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bs
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s002
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 4
+            [endTimeSlot] => 4
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9187
+            [new] => 
+            [start_date] => 17/09/2015 10:35
+            [end_date] => 17/09/2015 11:20
+            [hour] => 2
+        )
+
+    [27] => Array
+        (
+            [id] => 80454
+            [start] => 1442481600
+            [end] => 1442484300
+            [subjects] => Array
+                (
+                    [0] => bi
+                )
+
+            [teachers] => Array
+                (
+                    [0] => dd
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s212
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 5
+            [endTimeSlot] => 5
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9185
+            [new] => 
+            [start_date] => 17/09/2015 11:20
+            [end_date] => 17/09/2015 12:05
+            [hour] => 3
+        )
+
+    [28] => Array
+        (
+            [id] => 80458
+            [start] => 1442486700
+            [end] => 1442489400
+            [subjects] => Array
+                (
+                    [0] => ne
+                )
+
+            [teachers] => Array
+                (
+                    [0] => st
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv205
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 6
+            [endTimeSlot] => 6
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 8543
+            [new] => 
+            [start_date] => 17/09/2015 12:45
+            [end_date] => 17/09/2015 13:30
+            [hour] => 4
+        )
+
+    [29] => Array
+        (
+            [id] => 80455
+            [start] => 1442489400
+            [end] => 1442492100
+            [subjects] => Array
+                (
+                    [0] => du
+                )
+
+            [teachers] => Array
+                (
+                    [0] => grk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv209
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 7
+            [endTimeSlot] => 7
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9186
+            [new] => 
+            [start_date] => 17/09/2015 13:30
+            [end_date] => 17/09/2015 14:15
+            [hour] => 5
+        )
+
+    [30] => Array
+        (
+            [id] => 80453
+            [start] => 1442493300
+            [end] => 1442496000
+            [subjects] => Array
+                (
+                    [0] => ak
+                )
+
+            [teachers] => Array
+                (
+                    [0] => ree
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv207
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 8
+            [endTimeSlot] => 8
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784203
+            [lastModified] => 1441784203
+            [hidden] => 
+            [appointmentInstance] => 9184
+            [new] => 
+            [start_date] => 17/09/2015 14:35
+            [end_date] => 17/09/2015 15:20
+            [hour] => 6
+        )
+
+    [31] => Array
+        (
+            [id] => 81071
+            [start] => 1442556000
+            [end] => 1442558700
+            [subjects] => Array
+                (
+                    [0] => lz
+                )
+
+            [teachers] => Array
+                (
+                    [0] => kh
+                    [1] => lng
+                    [2] => uf
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3b
+                    [1] => v3c
+                    [2] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s104
+                    [1] => s105
+                    [2] => s103
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 1
+            [endTimeSlot] => 1
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9815
+            [new] => 
+            [start_date] => 18/09/2015 8:00
+            [end_date] => 18/09/2015 8:45
+            [hour] => -1
+        )
+
+    [32] => Array
+        (
+            [id] => 84109
+            [start] => 1442558700
+            [end] => 1442561400
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => s006
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => De les is verplaatst naar vr 08:55u en het lokaal is gewijzigd naar EHV013.
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1442324540
+            [lastModified] => 1442324540
+            [hidden] => 
+            [appointmentInstance] => 9808
+            [new] => 
+            [start_date] => 18/09/2015 8:45
+            [end_date] => 18/09/2015 9:30
+            [hour] => 2
+        )
+
+    [33] => Array
+        (
+            [id] => 84160
+            [start] => 1442559300
+            [end] => 1442562000
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv013
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 1
+            [moved] => 1
+            [changeDescription] => Het lokaal is gewijzigd (was S006) en de les is verplaatst (komt van vr 08:45u).
+            [startTimeSlot] => 2
+            [endTimeSlot] => 2
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1442324541
+            [lastModified] => 1442324541
+            [hidden] => 
+            [appointmentInstance] => 9808
+            [new] => 
+            [start_date] => 18/09/2015 8:55
+            [end_date] => 18/09/2015 9:40
+            [hour] => 2
+        )
+
+    [34] => Array
+        (
+            [id] => 84110
+            [start] => 1442561400
+            [end] => 1442564100
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => s006
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => De les is verplaatst naar vr 09:40u en het lokaal is gewijzigd naar EHV013.
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1442324540
+            [lastModified] => 1442324540
+            [hidden] => 
+            [appointmentInstance] => 9809
+            [new] => 
+            [start_date] => 18/09/2015 9:30
+            [end_date] => 18/09/2015 10:15
+            [hour] => 2
+        )
+
+    [35] => Array
+        (
+            [id] => 84161
+            [start] => 1442562000
+            [end] => 1442564700
+            [subjects] => Array
+                (
+                    [0] => oo
+                )
+
+            [teachers] => Array
+                (
+                    [0] => stn
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.oo1
+                )
+
+            [locations] => Array
+                (
+                    [0] => ehv013
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 1
+            [moved] => 1
+            [changeDescription] => Het lokaal is gewijzigd (was S006) en de les is verplaatst (komt van vr 09:30u).
+            [startTimeSlot] => 3
+            [endTimeSlot] => 3
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1442324541
+            [lastModified] => 1442324541
+            [hidden] => 
+            [appointmentInstance] => 9809
+            [new] => 
+            [start_date] => 18/09/2015 9:40
+            [end_date] => 18/09/2015 10:25
+            [hour] => 2
+        )
+
+    [36] => Array
+        (
+            [id] => 81067
+            [start] => 1442565300
+            [end] => 1442568000
+            [subjects] => Array
+                (
+                    [0] => fa
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bnm
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s001
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 4
+            [endTimeSlot] => 4
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9811
+            [new] => 
+            [start_date] => 18/09/2015 10:35
+            [end_date] => 18/09/2015 11:20
+            [hour] => 2
+        )
+
+    [37] => Array
+        (
+            [id] => 81066
+            [start] => 1442568000
+            [end] => 1442570700
+            [subjects] => Array
+                (
+                    [0] => ak
+                )
+
+            [teachers] => Array
+                (
+                    [0] => ree
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s306
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 5
+            [endTimeSlot] => 5
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9810
+            [new] => 
+            [start_date] => 18/09/2015 11:20
+            [end_date] => 18/09/2015 12:05
+            [hour] => 3
+        )
+
+    [38] => Array
+        (
+            [id] => 81068
+            [start] => 1442570700
+            [end] => 1442573400
+            [subjects] => Array
+                (
+                    [0] => gs
+                )
+
+            [teachers] => Array
+                (
+                    [0] => lg
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s103
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 6
+            [endTimeSlot] => 6
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9812
+            [new] => 
+            [start_date] => 18/09/2015 12:05
+            [end_date] => 18/09/2015 12:50
+            [hour] => 4
+        )
+
+    [39] => Array
+        (
+            [id] => 81062
+            [start] => 1442574900
+            [end] => 1442577600
+            [subjects] => Array
+                (
+                    [0] => la
+                )
+
+            [teachers] => Array
+                (
+                    [0] => bgw
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3.la1
+                )
+
+            [locations] => Array
+                (
+                    [0] => s004
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 7
+            [endTimeSlot] => 7
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9806
+            [new] => 
+            [start_date] => 18/09/2015 13:15
+            [end_date] => 18/09/2015 14:00
+            [hour] => 5
+        )
+
+    [40] => Array
+        (
+            [id] => 81070
+            [start] => 1442577600
+            [end] => 1442580300
+            [subjects] => Array
+                (
+                    [0] => wi
+                )
+
+            [teachers] => Array
+                (
+                    [0] => sk
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s208
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 8
+            [endTimeSlot] => 8
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9814
+            [new] => 
+            [start_date] => 18/09/2015 14:00
+            [end_date] => 18/09/2015 14:45
+            [hour] => 6
+        )
+
+    [41] => Array
+        (
+            [id] => 81069
+            [start] => 1442580300
+            [end] => 1442583000
+            [subjects] => Array
+                (
+                    [0] => ne
+                )
+
+            [teachers] => Array
+                (
+                    [0] => st
+                )
+
+            [groups] => Array
+                (
+                    [0] => v3a
+                )
+
+            [locations] => Array
+                (
+                    [0] => s002
+                )
+
+            [type] => lesson
+            [remark] => 
+            [valid] => 1
+            [cancelled] => 
+            [modified] => 
+            [moved] => 
+            [changeDescription] => 
+            [startTimeSlot] => 9
+            [endTimeSlot] => 9
+            [branch] => candea
+            [branchOfSchool] => 
+            [created] => 1441784211
+            [lastModified] => 1441784211
+            [hidden] => 
+            [appointmentInstance] => 9813
+            [new] => 
+            [start_date] => 18/09/2015 14:45
+            [end_date] => 18/09/2015 15:30
+            [hour] => 6
+        )
+
+)
