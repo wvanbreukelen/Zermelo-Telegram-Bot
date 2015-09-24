@@ -30,6 +30,14 @@ while(1){
 	file_get_contents($getUpdates.'?offset='.$offset);
 
 	switch(true){
+// 		Welkomstbericht:
+		case $message == "/start":
+			sendMessage($chatId, "Welkom bij de Telegram bot voor klas V3A van het Candea College!\nDeze bot kan roosters sturen en reageert op sommige berichten.", null);
+			sendMessage($chatId, "Registreer met /registreer", null);
+			sendMessage($chatId, "Daarna kun je je rooster opvragen met /rooster", null);
+		break;
+		
+// 		Commands:
 		case ($message == "/ping"):
 			sendMessage($chatId, "Pong!", null);
 		break;
@@ -125,6 +133,7 @@ while(1){
 				sendMessage($chatId, "Je bent nog niet geregistreerd! /registreer voor meer informatie.", $messageId);
 			}
 		break;
+		
 // 		Wat simpele reacties toegevoegd op verzoek van wat vrienden.
 		case ($message == "mondo"):
 			sendMessage($chatId, "Oowada", $messageId);
