@@ -1,13 +1,10 @@
 <?php
+require 'ZermeloRoosterPHP/custom_autoload.php';
 require 'config.php';
-require 'custom_autoload.php';
 
 date_default_timezone_set("Europe/Amsterdam");
-
 $date = date('d/m/Y', time());
-
-register_zermelo_api();
-$zermelo = new ZermeloAPI('candea');
+$date1 = date("d/m/Y", strtotime("tomorrow"));
 
 $getUpdates = $website.'getUpdates';
 
@@ -21,20 +18,26 @@ while(1){
 	$message = strtolower(getMessage($result));
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
-	$ifGroup = getIfGroup($result);
-	$length = strlen((string)$message);
 	
-	$file = "leerlingnummers/".$userId.".txt";
+	$file = "gebruikers/".$userId.".txt";
+	if (!file_exists($file) && !empty($message)){
+		$fp = fopen($file, "w");
+		fwrite($fp, "\n\n\n");
+		fclose($fp);
+		print_r("Nieuw bestand aangemaakt voor: ".$userId."\n");
+	}
 	
 	$offset++;
 	file_get_contents($getUpdates.'?offset='.$offset);
-
+	
 	switch(true){
 // 		Welkomstbericht:
 		case $message == "/start":
-			sendMessage($chatId, "Welkom bij de Telegram bot voor klas V3A van het Candea College!\nDeze bot kan roosters sturen en reageert op sommige berichten.", null);
-			sendMessage($chatId, "Registreer met /registreer", null);
-			sendMessage($chatId, "Daarna kun je je rooster opvragen met /rooster", null);
+			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null);
+			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null);
+			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null);
+			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null);
+			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met /rooster", null);
 		break;
 		
 // 		Commands:
@@ -51,39 +54,83 @@ while(1){
 			}
 		break;
 		case $message == "/registreer":
-			sendMessage($chatId, "Stuur eerst je leerlingnummer (die zal gekoppeld worden aan je Telegram ID) en dan de appcode van Zermelo.", null);
+			$content = file($file);
+			if ($content[0] == "\n"){
+				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>.'", $messageId);
+			} elseif ($content[1] == "\n" || !$content[1]){
+				sendMessage($chatId, "Stuur je appcode met '/code <appcode>'.", $messageId);
+			} elseif ($content[2] == "\n" || !$content[2]){
+				sendMessage($chatId, "Stuur je schoolnaam met '/school <schoolnaam>'.", $messageId);
+			} else {
+				sendMessage($chatId, "Je bent al volledig geregistreerd! Vraag je rooster op met '/rooster'.", null);
+			}
 		break;
 		
 // 		Registratie:
-		case (ctype_digit($message) == true && $length == 6):
-			if (file_exists("leerlingnummers/".$userId.".txt")){
+
+		case 0 === strpos($message, '/leerlingnummer'):
 				$content = file($file);
-				if ($content[0] == $message || $content[0] == $message."\n"){
-					sendMessage($chatId, "Je bent al geregistreerd!", $messageId);
+				
+				@$leerlingnummer = explode(" ",$message)[1];
+				
+				if ($leerlingnummer == null){
+					sendMessage($chatId, "'/leerlingnummer <leerlingnummer>'", $messageId);
+				} elseif ($content[0] == $leerlingnummer || $content[0] == $leerlingnummer."\n"){
+					sendMessage($chatId, "Je leerlingnummer is al opgeslagen!", $messageId);
 				} else {
-					unlink($file);
-					$fp = fopen($file, "w");
-					fwrite($fp, $message."\n");
-					fclose($fp);
-					sendMessage($chatId, "Je leerlingnummer is veranderd, stuur de Zermelo appcode (opnieuw) (Koppelingen > Koppel App).", $messageId);
+					try {
+						$fp = fopen($file, "w+");
+						$content[0] = $leerlingnummer."\n";
+						fwrite($fp, implode($content, ''));
+						fclose($fp);
+						sendMessage($chatId, "Je leerlingnummer is veranderd naar: ".$leerlingnummer, $messageId);
+					} catch (Exception $e) {
+						sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je leerlingnummer.", $messageId);
+					}
 				}
+		break;
+		
+		case 0 === strpos($message, '/code'):
+			$content = file($file);
+			
+			@$code = explode(" ",$message)[1];
+			
+			if ($code == null){
+				sendMessage($chatId, "'/code <appcode>' (Zermelo portal > Koppelingen > Koppel App)", $messageId);
+			} elseif ($content[1] == $code || $content[1] == $code."\n"){
+				sendMessage($chatId, "Stuur een nieuwe code!", $messageId);
 			} else {
-				$fp = fopen($file, "w");
-				fwrite($fp, $message."\n");
-				fclose($fp);
-				sendMessage($chatId, "Je leerlingnummer is succesvol aan je Telegram ID gekoppeld, stuur nu de appcode van Zermelo (Koppelingen > Koppel App). Stuur een ander leerlingnummer mocht je je leerlingnummer willen veranderen.", $messageId);
+				try {
+					$fp = fopen($file, "w+");
+					$content[1] = $code."\n";
+					fwrite($fp, implode($content, ''));
+					fclose($fp);
+					sendMessage($chatId, "Je appcode is veranderd naar: ".$code, $messageId);
+				} catch (Exception $e) {
+					sendMessage($chatId, "Er is misgegaan bij het opslaan van je appcode.", $messageId);
+				}
 			}
 		break;
-		case (ctype_digit($message) == true && $length == 12):
+		
+		case 0 === strpos($message, '/school'):
 			$content = file($file);
-			unset($content[1]);
-			$content[1] = $message;
-			file_put_contents($file, implode("", $content));
-			try {
-				$zermelo->grabAccessToken($content[0], $content[1]);
-				sendMessage($chatId, "Je leerlingnummer en appcode zijn opgeslagen! Later zul je je eigen rooster op kunnen vragen met /rooster.", $messageId);
-			} catch (Exception $e) {
-				sendMessage($chatId, "Er is iets fout gegaan, probeer het nog een keer met een nieuwe code.", $messageId);
+			
+			@$school = explode(" ",$message)[1];
+			
+			if ($school == null){
+				sendMessage($chatId, "'/school <school>' (Zermelo portal > Koppelingen > Koppel App)", $messageId);
+			} elseif ($content[2] == $school || $content[2] == $school."\n"){
+				sendMessage($chatId, "Je school is al opgeslagen!", $messageId);
+			} else {
+				try {
+					$fp = fopen($file, "w+");
+					$content[2] = $school."\n";
+					fwrite($fp, implode($content, ''));
+					fclose($fp);
+					sendMessage($chatId, "Je school is veranderd naar: ".$school, $messageId);
+				} catch (Exception $e) {
+					sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je school.", $messageId);
+				}
 			}
 		break;
 		
@@ -92,49 +139,34 @@ while(1){
 		case $message == "/rooster":
 			$content = file($file);
 			$leerlingnummer = $content[0];
-			if (file_exists($file)){
-				try {
-					$rooster = $zermelo->getStudentGrid($content[0]);
-					
-					$subjects = array();
-					$teachers = array();
-					$locations = array();
-					$start = array();
-					$end = array();
-					$data = array();
-					
-					foreach($rooster as $subArray) {
-						$subjects[] = $subArray['subjects'][0];
-						$teachers[] = $subArray['teachers'][0];
-						$locations[] = $subArray['locations'][0];
-						$start[] = $subArray['start_date'];
-						$end[] = $subArray['end_date'];
-					}
-					
-					$mi = new MultipleIterator();
-					$mi->attachIterator(new ArrayIterator($subjects));
-					$mi->attachIterator(new ArrayIterator($teachers));
-					$mi->attachIterator(new ArrayIterator($locations));
-					$mi->attachIterator(new ArrayIterator($start));
-					$mi->attachIterator(new ArrayIterator($end));
-					
-					foreach ($mi as $value) {
-						list($subject, $teacher, $location, $start, $end) = $value;
-						if (substr($start, 0, 10) == $date){
-							$data[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
-						}
-					}
-					$data = implode("\n", $data);
-					sendMessage($chatId, "Jouw rooster van vandaag:\n".$data, $messageId);
-				} catch (Exception $e){
-					sendMessage($chatId, "Het ophalen van je rooster is niet gelukt, probeer het later nog een keer of stuur een nieuwe appcode.", $messageId);
-				}
+			if (!$content[0] || !$content[1] || !$content[2]){
+				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
 			} else {
-				sendMessage($chatId, "Je bent nog niet geregistreerd! /registreer voor meer informatie.", $messageId);
+				$leerlingnummer = substr($content[0], 0, -1);
+				$code = substr($content[1], 0, -1);
+				$school = substr($content[2], 0, -1);
+				
+				try {
+					if (strpos(file_get_contents("gebruikers/geregistreerd.txt"), $leerlingnummer) === false) {
+						register_zermelo_api();
+						$zermelo = new ZermeloAPI($school);
+					
+						$zermelo->grabAccessToken($leerlingnummer, $code);
+						
+						file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
+						rooster($leerlingnummer, $school);
+					} else {
+						rooster($leerlingnummer, $school);
+					}
+				} catch (Exception $e){
+					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren.", $messageId);
+					print_r($e);
+				}
 			}
 		break;
 		
-// 		Wat simpele reacties toegevoegd op verzoek van wat vrienden.
+// 		Wat simpele reacties toegevoegd op verzoek van wat vrienden:
+
 		case ($message == "mondo"):
 			sendMessage($chatId, "Oowada", $messageId);
 		break;
@@ -226,6 +258,55 @@ function getIfGroup($array){
 			return false;
 		}
 	}
+}
+
+function rooster($leerlingnummer, $school){
+	global $date, $date1, $chatId, $messageId;
+	
+	register_zermelo_api();
+	$zermelo = new ZermeloAPI($school);
+	
+	$rooster = $zermelo->getStudentGrid($leerlingnummer);
+	
+	$subjects = array();
+	$teachers = array();
+	$locations = array();
+	$start = array();
+	$end = array();
+	$today = array();
+	$tomorrow = array();
+	
+	foreach($rooster as $subArray) {
+		$subjects[] = $subArray['subjects'][0];
+		$teachers[] = $subArray['teachers'][0];
+		$locations[] = $subArray['locations'][0];
+		$start[] = $subArray['start_date'];
+		$end[] = $subArray['end_date'];
+	}
+	
+	$mi = new MultipleIterator();
+	$mi->attachIterator(new ArrayIterator($subjects));
+	$mi->attachIterator(new ArrayIterator($teachers));
+	$mi->attachIterator(new ArrayIterator($locations));
+	$mi->attachIterator(new ArrayIterator($start));
+	$mi->attachIterator(new ArrayIterator($end));
+	
+	foreach ($mi as $value) {
+		list($subject, $teacher, $location, $start, $end) = $value;
+		if (substr($start, 0, 10) == $date){
+			$today[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+		}
+	}
+	foreach ($mi as $value) {
+		list($subject, $teacher, $location, $start, $end) = $value;
+		if (substr($start, 0, 10) == $date1){
+			$tomorrow[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+		}
+	}
+	$today = implode("\n", $today);
+	$tomorrow = implode("\n", $tomorrow);
+	sendMessage($chatId, "Jouw rooster van vandaag:\n".$today, $messageId);
+	sendMessage($chatId, "Jouw rooster voor morgen:\n".$tomorrow, $messageId);
 }
 
 function sendMessage($chatId, $message, $messageId){
