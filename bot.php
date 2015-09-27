@@ -165,41 +165,41 @@ while(1){
 			}
 		break;
 		
-// 		Wat simpele reacties toegevoegd op verzoek van wat vrienden:
+// 		Dit zal later in een andere bot geplaatst worden:
 
-		case ($message == "mondo"):
-			sendMessage($chatId, "Oowada", $messageId);
-		break;
-		case stripos($message, "panda") !== false:
-			sendMessage($chatId, "\xF0\x9F\x90\xBC", $messageId);
-		break;
-		case stripos($message, "ezio") !== false:
-			sendMessage($chatId, "Requiscat in pace.", $messageId);
-		break;
-		case $message == "ulquiorra":
-			sendMessage($chatId, "Hot", $messageId);
-		break;
-		case $message == "ulquihime" || $message == "ishimondo":
-			sendMessage($chatId, "Otp", $messageId);
-		break;
-		case $message == "ikkaku":
-			sendMessage($chatId, "Kale kop", $messageId);
-		break;
-		case $message == "bankai":
-			sendMessage($chatId, "Epic", $messageId);
-		break;
-		case $message == "pokemon":
-			sendMessage($chatId, "Gotta catch 'em all!", $messageId);
-		break;
-		case $message == "yumichika":
-			sendMessage($chatId, "Fabulous", $messageId);
-		break;
-		case $message == "killua":
-			sendMessage($chatId, "Assassin", $messageId);
-		break;
-		case $message == "muramasa":
-			sendSticker($chatId, "BQADBAADBAoAApesNQABuh8VOZKFxWMC", $messageId);
-		break;
+// 		case ($message == "mondo"):
+// 			sendMessage($chatId, "Oowada", $messageId);
+// 		break;
+// 		case stripos($message, "panda") !== false:
+// 			sendMessage($chatId, "\xF0\x9F\x90\xBC", $messageId);
+// 		break;
+// 		case stripos($message, "ezio") !== false:
+// 			sendMessage($chatId, "Requiscat in pace.", $messageId);
+// 		break;
+// 		case $message == "ulquiorra":
+// 			sendMessage($chatId, "Hot", $messageId);
+// 		break;
+// 		case $message == "ulquihime" || $message == "ishimondo":
+// 			sendMessage($chatId, "Otp", $messageId);
+// 		break;
+// 		case $message == "ikkaku":
+// 			sendMessage($chatId, "Kale kop", $messageId);
+// 		break;
+// 		case $message == "bankai":
+// 			sendMessage($chatId, "Epic", $messageId);
+// 		break;
+// 		case $message == "pokemon":
+// 			sendMessage($chatId, "Gotta catch 'em all!", $messageId);
+// 		break;
+// 		case $message == "yumichika":
+// 			sendMessage($chatId, "Fabulous", $messageId);
+// 		break;
+// 		case $message == "killua":
+// 			sendMessage($chatId, "Assassin", $messageId);
+// 		break;
+// 		case $message == "muramasa":
+// 			sendSticker($chatId, "BQADBAADBAoAApesNQABuh8VOZKFxWMC", $messageId);
+// 		break;
 	}
 }
 
