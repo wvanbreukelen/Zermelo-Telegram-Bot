@@ -35,7 +35,7 @@ while(1){
 		case $message == "/start":
 			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null);
 			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null);
-			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null);
+// 			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null);
 			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null);
 			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met /rooster", null);
 		break;
