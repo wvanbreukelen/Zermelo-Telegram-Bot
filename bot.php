@@ -22,6 +22,8 @@ while(1){
 	$message = strtolower(getMessage($result));
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
+	$firstName = getFirstName($result);
+	$lastName = getLastName($result);
 	
 	$file = "gebruikers/".$userId.".txt";
 	if (!file_exists($file) && !empty($message)){
@@ -88,8 +90,10 @@ while(1){
 						fwrite($fp, implode($content, ''));
 						fclose($fp);
 						sendMessage($chatId, "Je leerlingnummer is veranderd naar: ".$leerlingnummer, $messageId);
+						print_r("Leerlingnummer '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$leerlingnummer."'.\n");
 					} catch (Exception $e) {
 						sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je leerlingnummer.", $messageId);
+						print_r("Veranderen leerlingnummer van '".$userId." (".$firstName." ".$lastName.")' naar '".$leerlingnummer."' mislukt.\n");
 					}
 				}
 		break;
@@ -110,8 +114,10 @@ while(1){
 					fwrite($fp, implode($content, ''));
 					fclose($fp);
 					sendMessage($chatId, "Je appcode is veranderd naar: ".$code, $messageId);
+					print_r("Appcode '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$code."'.\n");
 				} catch (Exception $e) {
 					sendMessage($chatId, "Er is misgegaan bij het opslaan van je appcode.", $messageId);
+					print_r("Veranderen appcode '".$userId." (".$firstName." ".$lastName.")' naar '".$code."' mislukt.\n");
 				}
 			}
 		break;
@@ -132,8 +138,10 @@ while(1){
 					fwrite($fp, implode($content, ''));
 					fclose($fp);
 					sendMessage($chatId, "Je school is veranderd naar: ".$school, $messageId);
+					print_r("School '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$school."'.\n");
 				} catch (Exception $e) {
 					sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je school.", $messageId);
+					print_r("Veranderen school '".$userId." (".$firstName." ".$lastName.")' naar '".$school."' mislukt.\n");
 				}
 			}
 		break;
@@ -143,7 +151,7 @@ while(1){
 		case $message == "/rooster":
 			$content = file($file);
 			$leerlingnummer = $content[0];
-			if (!$content[0] || !$content[1] || !$content[2]){
+			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
 				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
 			} else {
 				$leerlingnummer = substr($content[0], 0, -1);
@@ -162,9 +170,10 @@ while(1){
 					} else {
 						rooster($leerlingnummer, $school);
 					}
+					print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 				} catch (Exception $e){
 					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren.", $messageId);
-					print_r($e);
+					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 				}
 			}
 		break;
@@ -272,6 +281,26 @@ function getIfGroup($array){
 			} else {
 				return false;
 			}
+		}
+	}
+}
+
+function getFirstName($array){
+	if ($array != null){
+		$firstName = $array["result"];
+		if ($firstName != null){
+			$firstName = $firstName[0];
+			return $firstName['message']['from']['first_name'];
+		}
+	}
+}
+
+function getLastName($array){
+	if ($array != null){
+		$lastName = $array["result"];
+		if ($lastName != null){
+			$lastName = $lastName[0];
+			return $lastName['message']['from']['last_name'];
 		}
 	}
 }
