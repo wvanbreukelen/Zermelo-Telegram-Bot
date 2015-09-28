@@ -8,7 +8,7 @@ $date1 = date("d/m/Y", strtotime("tomorrow"));
 
 $getUpdates = $website.'getUpdates';
 
-while(1){
+while (true){
 	$result = file_get_contents($getUpdates);
 	$result = json_decode($result, true);
 // 	print_r($result);
@@ -17,13 +17,16 @@ while(1){
 // 	print_r($result);
 	
 	
-	$offset = getOffset($result);
+	$updateId = getUpdateId($result);
 	$chatId = getChatId($result);
 	$message = strtolower(getMessage($result));
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
 	$firstName = getFirstName($result);
 	$lastName = getLastName($result);
+	
+	$updateId++;
+	file_get_contents($getUpdates.'?offset='.$updateId);
 	
 	$file = "gebruikers/".$userId.".txt";
 	if (!file_exists($file) && !empty($message)){
@@ -33,8 +36,8 @@ while(1){
 		print_r("Nieuw bestand aangemaakt voor: ".$userId."\n");
 	}
 	
-	$offset++;
-	file_get_contents($getUpdates.'?offset='.$offset);
+	$updateId++;
+	file_get_contents($getUpdates.'?offset='.$updateId);
 	
 	switch(true){
 // 		Welkomstbericht:
@@ -47,7 +50,7 @@ while(1){
 		break;
 		
 // 		Commands:
-		case ($message == "/ping"):
+		case $message == "/ping":
 			sendMessage($chatId, "Pong!", null);
 		break;
 		case $message == "/restart":
@@ -180,7 +183,7 @@ while(1){
 		
 // 		Dit zal later in een andere bot geplaatst worden:
 
-// 		case ($message == "mondo"):
+// 		case $message == "mondo":
 // 			sendMessage($chatId, "Oowada", $messageId);
 // 		break;
 // 		case stripos($message, "panda") !== false:
@@ -217,13 +220,21 @@ while(1){
 }
 
 
+function getUpdateId(&$array){
+	if ($array != null){
+		$updateId = $array["result"];
+		if ($updateId != null){
+			$updateId = $updateId[0];
+			return $updateId['update_id'];
+		}
+	}
+}
+
 function getOffset(&$array){
 	if ($array != null){
-		$offset = $array["result"];
-		if ($offset != null){
-			$offset = $offset[0];
-			return $offset['update_id'];
-		}
+		$offset = end($array);
+		$offset = end($offset);
+		return $offset['update_id'];
 	}
 }
 
