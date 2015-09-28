@@ -16,17 +16,13 @@ while (true){
 	$result = array_slice($result, -10, 10, true);
 // 	print_r($result);
 	
-	
-	$updateId = getUpdateId($result);
+	$offset = getOffset($result);
 	$chatId = getChatId($result);
 	$message = strtolower(getMessage($result));
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
 	$firstName = getFirstName($result);
 	$lastName = getLastName($result);
-	
-	$updateId++;
-	file_get_contents($getUpdates.'?offset='.$updateId);
 	
 	$file = "gebruikers/".$userId.".txt";
 	if (!file_exists($file) && !empty($message)){
@@ -36,8 +32,8 @@ while (true){
 		print_r("Nieuw bestand aangemaakt voor: ".$userId."\n");
 	}
 	
-	$updateId++;
-	file_get_contents($getUpdates.'?offset='.$updateId);
+	$offset++;
+	file_get_contents($getUpdates.'?offset='.$offset);
 	
 	switch(true){
 // 		Welkomstbericht:
@@ -50,7 +46,7 @@ while (true){
 		break;
 		
 // 		Commands:
-		case $message == "/ping":
+		case ($message == "/ping"):
 			sendMessage($chatId, "Pong!", null);
 		break;
 		case $message == "/restart":
@@ -183,7 +179,7 @@ while (true){
 		
 // 		Dit zal later in een andere bot geplaatst worden:
 
-// 		case $message == "mondo":
+// 		case ($message == "mondo"):
 // 			sendMessage($chatId, "Oowada", $messageId);
 // 		break;
 // 		case stripos($message, "panda") !== false:
@@ -220,21 +216,13 @@ while (true){
 }
 
 
-function getUpdateId(&$array){
-	if ($array != null){
-		$updateId = $array["result"];
-		if ($updateId != null){
-			$updateId = $updateId[0];
-			return $updateId['update_id'];
-		}
-	}
-}
-
 function getOffset(&$array){
 	if ($array != null){
-		$offset = end($array);
-		$offset = end($offset);
-		return $offset['update_id'];
+		$offset = $array["result"];
+		if ($offset != null){
+			$offset = $offset[0];
+			return $offset['update_id'];
+		}
 	}
 }
 
@@ -253,7 +241,7 @@ function getMessage(&$array){
 		$message = $array["result"];
 		if ($message != null){
 			$message = $message[0];
-			if(isset($message['message']['text'])){
+			if (isset($message['message']['text'])){
 				return $message['message']['text'];
 			}
 		}
@@ -265,7 +253,7 @@ function getMessageId($array){
 		$messageId = $array["result"];
 		if ($messageId != null){
 			$messageId = $messageId[0];
-			if(isset($messageId['message']['message_id'])){
+			if (isset($messageId['message']['message_id'])){
 				return $messageId['message']['message_id'];
 			}
 		}
@@ -287,7 +275,7 @@ function getIfGroup($array){
 		$group = $array["result"];
 		if ($group != null){
 			$group = $group[0];
-			if(isset($group['message']['chat']['title'])){
+			if (isset($group['message']['chat']['title'])){
 				return true;
 			} else {
 				return false;
@@ -301,7 +289,9 @@ function getFirstName($array){
 		$firstName = $array["result"];
 		if ($firstName != null){
 			$firstName = $firstName[0];
-			return $firstName['message']['from']['first_name'];
+			if (isset($firstName['message']['from']['first_name'])){
+				return $firstName['message']['from']['first_name'];
+			}
 		}
 	}
 }
@@ -311,7 +301,9 @@ function getLastName($array){
 		$lastName = $array["result"];
 		if ($lastName != null){
 			$lastName = $lastName[0];
-			return $lastName['message']['from']['last_name'];
+			if (isset($lastName['message']['from']['last_name'])){
+				return $lastName['message']['from']['last_name'];
+			}
 		}
 	}
 }
