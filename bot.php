@@ -13,6 +13,10 @@ while(1){
 	$result = json_decode($result, true);
 // 	print_r($result);
 
+	$result = array_slice($result, -10, 10, true);
+// 	print_r($result);
+	
+	
 	$offset = getOffset($result);
 	$chatId = getChatId($result);
 	$message = strtolower(getMessage($result));
@@ -206,56 +210,68 @@ while(1){
 
 function getOffset(&$array){
 	if ($array != null){
-		$offset = end($array);
-		$offset = end($offset);
-		return $offset['update_id'];
+		$offset = $array["result"];
+		if ($offset != null){
+			$offset = $offset[0];
+			return $offset['update_id'];
+		}
 	}
 }
 
 function getChatId(&$array){
 	if ($array != null){
-		$chatId = end($array);
-		$chatId = end($chatId);
-		return $chatId['message']['chat']['id'];
+		$chatId = $array["result"];
+		if ($chatId != null){
+			$chatId = $chatId[0];
+			return $chatId['message']['chat']['id'];
+		}
 	}
 }
 
 function getMessage(&$array){
 	if ($array != null){
-		$message = end($array);
-		$message = end($message);
-		if(isset($message['message']['text'])){
-			return $message['message']['text'];
+		$message = $array["result"];
+		if ($message != null){
+			$message = $message[0];
+			if(isset($message['message']['text'])){
+				return $message['message']['text'];
+			}
 		}
 	}
 }
 
 function getMessageId($array){
 	if ($array != null){
-		$messageId = end($array);
-		$messageId = end($messageId);
-		if(isset($messageId['message']['message_id'])){
-			return $messageId['message']['message_id'];
+		$messageId = $array["result"];
+		if ($messageId != null){
+			$messageId = $messageId[0];
+			if(isset($messageId['message']['message_id'])){
+				return $messageId['message']['message_id'];
+			}
 		}
 	}
 }
 
 function getUserId($array){
 	if ($array != null){
-		$userId = end($array);
-		$userId = end($userId);
-		return $userId['message']['from']['id'];
+		$userId = $array["result"];
+		if ($userId != null){
+			$userId = $userId[0];
+			return $userId['message']['from']['id'];
+		}
 	}
 }
 
 function getIfGroup($array){
 	if ($array != null){
-		$group = end($array);
-		$group = end($group);
-		if(isset($group['message']['chat']['title'])){
-			return true;
-		} else {
-			return false;
+		$group = $array["result"];
+		if ($group != null){
+			$group = $group[0];
+			if(isset($group['message']['chat']['title'])){
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }
