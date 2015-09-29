@@ -11,10 +11,10 @@ $getUpdates = $website.'getUpdates';
 while (true){
 	$result = file_get_contents($getUpdates);
 	$result = json_decode($result, true);
-// 	print_r($result);
 
-	$result = array_slice($result, -10, 10, true);
-// 	print_r($result);
+	if (isset($result["result"])){
+		$result = array_slice($result["result"], -10, 10, true);
+	}
 	
 	$offset = getOffset($result);
 	$chatId = getChatId($result);
@@ -47,7 +47,7 @@ while (true){
 		
 // 		Commands:
 		case ($message == "/ping"):
-			sendMessage($chatId, "Pong!", null);
+			sendMessage($chatId, "_Pong!_", null);
 		break;
 		case $message == "/restart":
 			if($userId == "125874268"){
@@ -216,94 +216,80 @@ while (true){
 }
 
 
-function getOffset(&$array){
+function getOffset($array){
 	if ($array != null){
-		$offset = $array["result"];
-		if ($offset != null){
-			$offset = $offset[0];
-			return $offset['update_id'];
-		}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		return $array[$key]['update_id'];
 	}
 }
 
-function getChatId(&$array){
+function getChatId($array){
 	if ($array != null){
-		$chatId = $array["result"];
-		if ($chatId != null){
-			$chatId = $chatId[0];
-			return $chatId['message']['chat']['id'];
-		}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		return $array[$key]['message']['chat']['id'];
 	}
 }
 
-function getMessage(&$array){
+function getMessage($array){
 	if ($array != null){
-		$message = $array["result"];
-		if ($message != null){
-			$message = $message[0];
-			if (isset($message['message']['text'])){
-				return $message['message']['text'];
-			}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		if (isset($array[$key]['message']['text'])){
+			return $array[$key]['message']['text'];
 		}
 	}
 }
 
 function getMessageId($array){
 	if ($array != null){
-		$messageId = $array["result"];
-		if ($messageId != null){
-			$messageId = $messageId[0];
-			if (isset($messageId['message']['message_id'])){
-				return $messageId['message']['message_id'];
-			}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		if (isset($array[$key]['message']['message_id'])){
+			return $array[$key]['message']['message_id'];
 		}
 	}
 }
 
 function getUserId($array){
 	if ($array != null){
-		$userId = $array["result"];
-		if ($userId != null){
-			$userId = $userId[0];
-			return $userId['message']['from']['id'];
-		}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		return $array[$key]['message']['from']['id'];
+// 		}
 	}
 }
 
 function getIfGroup($array){
 	if ($array != null){
-		$group = $array["result"];
-		if ($group != null){
-			$group = $group[0];
-			if (isset($group['message']['chat']['title'])){
-				return true;
-			} else {
-				return false;
-			}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		if (isset($array[$key]['message']['chat']['title'])){
+			return true;
+		} else {
+			return false;
 		}
+// 		}
 	}
 }
 
 function getFirstName($array){
 	if ($array != null){
-		$firstName = $array["result"];
-		if ($firstName != null){
-			$firstName = $firstName[0];
-			if (isset($firstName['message']['from']['first_name'])){
-				return $firstName['message']['from']['first_name'];
-			}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		if (isset($array[$key]['message']['from']['first_name'])){
+			return $array[$key]['message']['from']['first_name'];
 		}
 	}
 }
 
 function getLastName($array){
 	if ($array != null){
-		$lastName = $array["result"];
-		if ($lastName != null){
-			$lastName = $lastName[0];
-			if (isset($lastName['message']['from']['last_name'])){
-				return $lastName['message']['from']['last_name'];
-			}
+		$keys = array_keys($array);
+		$key = array_shift($keys);
+		if (isset($array[$key]['message']['from']['last_name'])){
+			return $array[$key]['message']['from']['last_name'];
 		}
 	}
 }
@@ -353,14 +339,14 @@ function rooster($leerlingnummer, $school){
 	}
 	$today = implode("\n", $today);
 	$tomorrow = implode("\n", $tomorrow);
-	sendMessage($chatId, "Jouw rooster van vandaag:\n".$today, $messageId);
-	sendMessage($chatId, "Jouw rooster voor morgen:\n".$tomorrow, $messageId);
+	sendMessage($chatId, "*Jouw rooster van vandaag:*\n".$today, $messageId);
+	sendMessage($chatId, "*Jouw rooster voor morgen:*\n".$tomorrow, $messageId);
 }
 
 function sendMessage($chatId, $message, $messageId){
 	global $website;
 	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
-	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$chatId."&text=".urlencode($message)."&reply_to_message_id=".$messageId);
+	file_get_contents($sendMessage = $website."sendMessage?chat_id=".$chatId."&text=".urlencode($message)."&reply_to_message_id=".$messageId."&parse_mode=Markdown");
 }
 
 function sendPhoto($chatId, $photo, $caption, $messageId){
