@@ -38,7 +38,7 @@ while (true){
 	switch(true){
 // 		Welkomstbericht:
 		case $message == "/start":
-			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null);
+			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo, ".$firstName."! Deze bot werkt ook in groepen.", null);
 			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null);
 // 			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null);
 			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null);
@@ -55,21 +55,21 @@ while (true){
 				print_r("Bot herstarten...\n");
 				exit(2);
 			} else {
-				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", null);
+				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten, ".$firstName.".", null);
 			}
 		break;
 		case $message == "/registreer":
 			$content = file($file);
 			if ($content[0] == "\n" && $content[1] == "\n" && $content[2] == "\n"){
-				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.\nStuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).\nStuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
+				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.\nStuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).\nStuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", null);
 			} elseif ($content[0] == "\n"){
-				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.", $messageId);
+				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.", null);
 			} elseif ($content[1] == "\n" || !$content[1]){
-				sendMessage($chatId, "Stuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
+				sendMessage($chatId, "Stuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).", null);
 			} elseif ($content[2] == "\n" || !$content[2]){
-				sendMessage($chatId, "Stuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
+				sendMessage($chatId, "Stuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", null);
 			} else {
-				sendMessage($chatId, "Je bent al volledig geregistreerd! Vraag je rooster op met '/rooster'.", null);
+				sendMessage($chatId, "Je bent al volledig geregistreerd, ".$firstName."! Vraag je rooster op met '/rooster'.", null);
 			}
 		break;
 		
@@ -81,19 +81,19 @@ while (true){
 				@$leerlingnummer = explode(" ",$message)[1];
 				
 				if ($leerlingnummer == null){
-					sendMessage($chatId, "'/leerlingnummer <leerlingnummer>'", $messageId);
+					sendMessage($chatId, "'/leerlingnummer <leerlingnummer>'", null);
 				} elseif ($content[0] == $leerlingnummer || $content[0] == $leerlingnummer."\n"){
-					sendMessage($chatId, "Je leerlingnummer is al opgeslagen!", $messageId);
+					sendMessage($chatId, "Je leerlingnummer is al opgeslagen, ".$firstName."!", null);
 				} else {
 					try {
 						$fp = fopen($file, "w+");
 						$content[0] = $leerlingnummer."\n";
 						fwrite($fp, implode($content, ''));
 						fclose($fp);
-						sendMessage($chatId, "Je leerlingnummer is veranderd naar: ".$leerlingnummer, $messageId);
+						sendMessage($chatId, "Je leerlingnummer is veranderd naar: ".$leerlingnummer, null);
 						print_r("Leerlingnummer '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$leerlingnummer."'.\n");
 					} catch (Exception $e) {
-						sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je leerlingnummer.", $messageId);
+						sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je leerlingnummer, ".$firstName."Probeer het opnieuw.", null);
 						print_r("Veranderen leerlingnummer van '".$userId." (".$firstName." ".$lastName.")' naar '".$leerlingnummer."' mislukt.\n");
 					}
 				}
@@ -105,19 +105,19 @@ while (true){
 			@$code = explode(" ",$message)[1];
 			
 			if ($code == null){
-				sendMessage($chatId, "'/code <appcode>' (Zermelo portal > Koppelingen > Koppel App)", $messageId);
+				sendMessage($chatId, "'/code <appcode>' (Zermelo portal > Koppelingen > Koppel App)", null);
 			} elseif ($content[1] == $code || $content[1] == $code."\n"){
-				sendMessage($chatId, "Stuur een nieuwe code!", $messageId);
+				sendMessage($chatId, "Stuur een nieuwe code, ".$firstName."!", null);
 			} else {
 				try {
 					$fp = fopen($file, "w+");
 					$content[1] = $code."\n";
 					fwrite($fp, implode($content, ''));
 					fclose($fp);
-					sendMessage($chatId, "Je appcode is veranderd naar: ".$code, $messageId);
+					sendMessage($chatId, "Je appcode is veranderd naar: ".$code, null);
 					print_r("Appcode '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$code."'.\n");
 				} catch (Exception $e) {
-					sendMessage($chatId, "Er is misgegaan bij het opslaan van je appcode.", $messageId);
+					sendMessage($chatId, "Er is misgegaan bij het opslaan van je appcode, ".$firstName.". Stuur een nieuwe code.", null);
 					print_r("Veranderen appcode '".$userId." (".$firstName." ".$lastName.")' naar '".$code."' mislukt.\n");
 				}
 			}
@@ -129,19 +129,19 @@ while (true){
 			@$school = explode(" ",$message)[1];
 			
 			if ($school == null){
-				sendMessage($chatId, "'/school <school>' (Zermelo portal > Koppelingen > Koppel App)", $messageId);
+				sendMessage($chatId, "'/school <school>' (Zermelo portal > Koppelingen > Koppel App)", null);
 			} elseif ($content[2] == $school || $content[2] == $school."\n"){
-				sendMessage($chatId, "Je school is al opgeslagen!", $messageId);
+				sendMessage($chatId, "Je school is al opgeslagen, ".$firstName."!", null);
 			} else {
 				try {
 					$fp = fopen($file, "w+");
 					$content[2] = $school."\n";
 					fwrite($fp, implode($content, ''));
 					fclose($fp);
-					sendMessage($chatId, "Je school is veranderd naar: ".$school, $messageId);
+					sendMessage($chatId, "Je school is veranderd naar: ".$school, null);
 					print_r("School '".$userId." (".$firstName." ".$lastName.")' veranderd naar '".$school."'.\n");
 				} catch (Exception $e) {
-					sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je school.", $messageId);
+					sendMessage($chatId, "Er is iets misgegaan bij het opslaan van je school, ".$firstName.". Probeer het opnieuw.", null);
 					print_r("Veranderen school '".$userId." (".$firstName." ".$lastName.")' naar '".$school."' mislukt.\n");
 				}
 			}
@@ -152,16 +152,16 @@ while (true){
 		case $message == "/rooster":
 			$content = file($file);
 			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
-				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
+				sendMessage($chatId, "Je bent nog niet volledig geregistreerd ".$firstName."! Meer informatie: '/registreer'.", null);
 			} else {
-				sendMessage($chatId, "Wil je je rooster van vandaag of morgen?", $messageId.'&reply_markup={"keyboard": [["1. Vandaag","2. Morgen"]],"one_time_keyboard": true,"selective": true,"resize_keyboard": true}');
+				sendMessage($chatId, "Wil je je rooster van vandaag of morgen, ".$firstName."?", null.'&reply_markup={"keyboard": [["1. Vandaag","2. Morgen"]],"one_time_keyboard": true,"selective": true,"resize_keyboard": true}');
 			}
 		break;
 		case $message == "1. vandaag":
 			$content = file($file);
 			$leerlingnummer = $content[0];
 			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
-				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
+				sendMessage($chatId, "Je bent nog niet volledig geregistreerd ".$firstName."! Meer informatie: '/registreer'.", null);
 			} else {
 				$leerlingnummer = substr($content[0], 0, -1);
 				$code = substr($content[1], 0, -1);
@@ -177,7 +177,7 @@ while (true){
 			
 							file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
 						} catch (Exception $e){
-							sendMessage($chatId, "Er is iets migegaan bij het ophalen van de token voor Zermelo, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId);
+							sendMessage($chatId, "Er is iets migegaan bij het ophalen van de token van Zermelo, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw, ".$firstName.".", null);
 							print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 						}
 						rooster($leerlingnummer, $school, "vandaag");
@@ -186,7 +186,7 @@ while (true){
 					}
 					print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 				} catch (Exception $e){
-					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId);
+					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw, ".$firstName.".", null);
 					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 				}
 			}
@@ -195,7 +195,7 @@ while (true){
 				$content = file($file);
 				$leerlingnummer = $content[0];
 				if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
-					sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
+					sendMessage($chatId, "Je bent nog niet volledig geregistreerd ".$firstName."! Meer informatie: /registreer", null);
 				} else {
 					$leerlingnummer = substr($content[0], 0, -1);
 					$code = substr($content[1], 0, -1);
@@ -215,7 +215,7 @@ while (true){
 						}
 						print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 					} catch (Exception $e){
-						sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren.", $messageId);
+						sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren, ".$firstName.".", null);
 						print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 					}
 				}
@@ -303,7 +303,7 @@ function getLastName($array){
 }
 
 function rooster($leerlingnummer, $school, $day){
-	global $date, $date1, $chatId, $messageId;
+	global $date, $date1, $chatId, $messageId, $firstName;
 	
 	register_zermelo_api();
 	$zermelo = new ZermeloAPI($school);
@@ -348,9 +348,9 @@ function rooster($leerlingnummer, $school, $day){
 	$today = implode("\n", $today);
 	$tomorrow = implode("\n", $tomorrow);
 	if ($day == "vandaag"){
-		sendMessage($chatId, "*Jouw rooster van vandaag:*\n".$today, $messageId);
+		sendMessage($chatId, "*Jouw rooster van vandaag, ".$firstName.":*\n".$today, null);
 	} elseif ($day == "morgen"){
-		sendMessage($chatId, "*Jouw rooster voor morgen:*\n".$tomorrow, $messageId);
+		sendMessage($chatId, "*Jouw rooster voor morgen, ".$firstName.":*\n".$tomorrow, null);
 	}
 }
 
