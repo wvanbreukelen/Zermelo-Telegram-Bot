@@ -60,8 +60,10 @@ while (true){
 		break;
 		case $message == "/registreer":
 			$content = file($file);
-			if ($content[0] == "\n"){
-				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>.'", $messageId);
+			if ($content[0] == "\n" && $content[1] == "\n" && $content[2] == "\n"){
+				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.\nStuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).\nStuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
+			} elseif ($content[0] == "\n"){
+				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>'.", $messageId);
 			} elseif ($content[1] == "\n" || !$content[1]){
 				sendMessage($chatId, "Stuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
 			} elseif ($content[2] == "\n" || !$content[2]){
