@@ -63,9 +63,9 @@ while (true){
 			if ($content[0] == "\n"){
 				sendMessage($chatId, "Stuur je leerlingnummer met '/leerlingnummer <leerlingnummer>.'", $messageId);
 			} elseif ($content[1] == "\n" || !$content[1]){
-				sendMessage($chatId, "Stuur je appcode met '/code <appcode>'.", $messageId);
+				sendMessage($chatId, "Stuur je appcode met '/code <appcode>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
 			} elseif ($content[2] == "\n" || !$content[2]){
-				sendMessage($chatId, "Stuur je schoolnaam met '/school <schoolnaam>'.", $messageId);
+				sendMessage($chatId, "Stuur je schoolnaam met '/school <schoolnaam>' (Zermelo portal > Koppelingen > Koppel App).", $messageId);
 			} else {
 				sendMessage($chatId, "Je bent al volledig geregistreerd! Vraag je rooster op met '/rooster'.", null);
 			}
