@@ -169,19 +169,24 @@ while (true){
 		
 				try {
 					if (strpos(file_get_contents("gebruikers/geregistreerd.txt"), $leerlingnummer) === false) {
-						register_zermelo_api();
-						$zermelo = new ZermeloAPI($school);
-							
-						$zermelo->grabAccessToken($leerlingnummer, $code);
-		
-						file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
+						try {
+							register_zermelo_api();
+							$zermelo = new ZermeloAPI($school);
+								
+							$zermelo->grabAccessToken($leerlingnummer, $code);
+			
+							file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
+						} catch (Exception $e){
+							sendMessage($chatId, "Er is iets migegaan bij het ophalen van de token voor Zermelo, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId);
+							print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
+						}
 						rooster($leerlingnummer, $school, "vandaag");
 					} else {
 						rooster($leerlingnummer, $school, "vandaag");
 					}
 					print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 				} catch (Exception $e){
-					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren.", $messageId);
+					sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId);
 					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 				}
 			}
@@ -214,43 +219,7 @@ while (true){
 						print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 					}
 				}
-				break;
-		
-// 		Dit zal later in een andere bot geplaatst worden:
-
-// 		case ($message == "mondo"):
-// 			sendMessage($chatId, "Oowada", $messageId);
-// 		break;
-// 		case stripos($message, "panda") !== false:
-// 			sendMessage($chatId, "\xF0\x9F\x90\xBC", $messageId);
-// 		break;
-// 		case stripos($message, "ezio") !== false:
-// 			sendMessage($chatId, "Requiscat in pace.", $messageId);
-// 		break;
-// 		case $message == "ulquiorra":
-// 			sendMessage($chatId, "Hot", $messageId);
-// 		break;
-// 		case $message == "ulquihime" || $message == "ishimondo":
-// 			sendMessage($chatId, "Otp", $messageId);
-// 		break;
-// 		case $message == "ikkaku":
-// 			sendMessage($chatId, "Kale kop", $messageId);
-// 		break;
-// 		case $message == "bankai":
-// 			sendMessage($chatId, "Epic", $messageId);
-// 		break;
-// 		case $message == "pokemon":
-// 			sendMessage($chatId, "Gotta catch 'em all!", $messageId);
-// 		break;
-// 		case $message == "yumichika":
-// 			sendMessage($chatId, "Fabulous", $messageId);
-// 		break;
-// 		case $message == "killua":
-// 			sendMessage($chatId, "Assassin", $messageId);
-// 		break;
-// 		case $message == "muramasa":
-// 			sendSticker($chatId, "BQADBAADBAoAApesNQABuh8VOZKFxWMC", $messageId);
-// 		break;
+			break;
 	}
 }
 
