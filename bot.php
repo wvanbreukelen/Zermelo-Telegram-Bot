@@ -149,6 +149,14 @@ while (true){
 
 		case $message == "/rooster":
 			$content = file($file);
+			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
+				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
+			} else {
+				sendMessage($chatId, "Wil je je rooster van vandaag of morgen?", $messageId.'&reply_markup={"keyboard": [["1. Vandaag","2. Morgen"]],"one_time_keyboard": true,"selective": true,"resize_keyboard": true}');
+			}
+		break;
+		case $message == "1. vandaag":
+			$content = file($file);
 			$leerlingnummer = $content[0];
 			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
 				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
@@ -156,18 +164,18 @@ while (true){
 				$leerlingnummer = substr($content[0], 0, -1);
 				$code = substr($content[1], 0, -1);
 				$school = substr($content[2], 0, -1);
-				
+		
 				try {
 					if (strpos(file_get_contents("gebruikers/geregistreerd.txt"), $leerlingnummer) === false) {
 						register_zermelo_api();
 						$zermelo = new ZermeloAPI($school);
-					
+							
 						$zermelo->grabAccessToken($leerlingnummer, $code);
-						
+		
 						file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
-						rooster($leerlingnummer, $school);
+						rooster($leerlingnummer, $school, "vandaag");
 					} else {
-						rooster($leerlingnummer, $school);
+						rooster($leerlingnummer, $school, "vandaag");
 					}
 					print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 				} catch (Exception $e){
@@ -175,7 +183,36 @@ while (true){
 					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 				}
 			}
-		break;
+			break;
+			case $message == "2. morgen":
+				$content = file($file);
+				$leerlingnummer = $content[0];
+				if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
+					sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId);
+				} else {
+					$leerlingnummer = substr($content[0], 0, -1);
+					$code = substr($content[1], 0, -1);
+					$school = substr($content[2], 0, -1);
+			
+					try {
+						if (strpos(file_get_contents("gebruikers/geregistreerd.txt"), $leerlingnummer) === false) {
+							register_zermelo_api();
+							$zermelo = new ZermeloAPI($school);
+								
+							$zermelo->grabAccessToken($leerlingnummer, $code);
+			
+							file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
+							rooster($leerlingnummer, $school, "morgen");
+						} else {
+							rooster($leerlingnummer, $school, "morgen");
+						}
+						print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
+					} catch (Exception $e){
+						sendMessage($chatId, "Er is iets migegaan bij het ophalen van je rooster, probeer je leerlingnummer/appcode/school opnieuw in te voeren.", $messageId);
+						print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
+					}
+				}
+				break;
 		
 // 		Dit zal later in een andere bot geplaatst worden:
 
@@ -294,7 +331,7 @@ function getLastName($array){
 	}
 }
 
-function rooster($leerlingnummer, $school){
+function rooster($leerlingnummer, $school, $day){
 	global $date, $date1, $chatId, $messageId;
 	
 	register_zermelo_api();
@@ -339,8 +376,11 @@ function rooster($leerlingnummer, $school){
 	}
 	$today = implode("\n", $today);
 	$tomorrow = implode("\n", $tomorrow);
-	sendMessage($chatId, "*Jouw rooster van vandaag:*\n".$today, $messageId);
-	sendMessage($chatId, "*Jouw rooster voor morgen:*\n".$tomorrow, $messageId);
+	if ($day == "vandaag"){
+		sendMessage($chatId, "*Jouw rooster van vandaag:*\n".$today, $messageId);
+	} elseif ($day == "morgen"){
+		sendMessage($chatId, "*Jouw rooster voor morgen:*\n".$tomorrow, $messageId);
+	}
 }
 
 function sendMessage($chatId, $message, $messageId){
