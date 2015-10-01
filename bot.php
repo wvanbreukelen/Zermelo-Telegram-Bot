@@ -34,9 +34,14 @@ while (true){
 	$file = "gebruikers/".$userId.".txt";
 	if (!file_exists($file) && !empty($message)){
 		$fp = fopen($file, "w");
-		fwrite($fp, "\n\n\n");
-		fclose($fp);
-		print_r("Nieuw bestand aangemaakt voor: ".$userId."\n");
+		if ($fp != false)
+		{
+			// OK to write
+			fwrite($fp, "\n\n\n");
+			fclose($fp);
+			echo "Nieuw bestand aangemaakt voor: ".$userId."\n";
+		}
+
 	}
 	
 	$offset++;
