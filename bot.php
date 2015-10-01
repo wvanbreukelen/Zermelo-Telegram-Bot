@@ -9,7 +9,14 @@ $date1 = date("d/m/Y", strtotime("tomorrow"));
 $getUpdates = $website.'getUpdates';
 
 while (true){
-	$result = file_get_contents($getUpdates);
+	// Sleep for one second, so we don't get server flooding :)
+	sleep(1);
+	
+	$result = @file_get_contents($getUpdates);
+	if ($result === false)
+	{
+	     echo "Failed to receive updates.";
+	}
 	$result = json_decode($result, true);
 
 	if (isset($result["result"])){
