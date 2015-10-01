@@ -51,24 +51,24 @@ while (true){
 	switch(true){
 // 		Welkomstbericht:
 		case $message == "/start":
-			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null);
-			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null);
-// 			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null);
-			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null);
-			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met /rooster", null);
+			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null, $group);
+			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null, $group);
+// 			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null, $group);
+			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null, $group);
+			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met /rooster", null, $group);
 		break;
 		
 // 		Commands:
 		case ($message == "/ping"):
-			sendMessage($chatId, "_Pong!_", null);
+			sendMessage($chatId, "_Pong!_", null, $group);
 		break;
 		case $message == "/restart":
 			if($userId == "125874268"){
-				sendMessage($chatId, "Bot herstarten...", null);
+				sendMessage($chatId, "Bot herstarten...", null, $group);
 				print_r("Bot herstarten...\n");
 				exit(2);
 			} else {
-				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", null);
+				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", null, $group);
 			}
 		break;
 		case $message == "/registreer":
