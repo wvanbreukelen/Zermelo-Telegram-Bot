@@ -15,7 +15,7 @@ while (true){
 	$result = @file_get_contents($getUpdates);
 	if ($result === false)
 	{
-	     echo "Failed to receive updates.";
+	     echo "Updates krijgen mislukt.\n";
 	}
 	$result = json_decode($result, true);
 
@@ -25,7 +25,7 @@ while (true){
 	
 	$offset = getOffset($result);
 	$chatId = getChatId($result);
-	$message = strtolower(getMessage($result));
+	$message = getMessage($result);
 	$messageId = getMessageId($result);
 	$userId = getUserId($result);
 	$firstName = getFirstName($result);
@@ -38,9 +38,9 @@ while (true){
 		if ($fp != false)
 		{
 			// OK to write
-			fwrite($fp, "\n\n\n");
+			fwrite($fp, "\n\n\n\n");
 			fclose($fp);
-			echo "Nieuw bestand aangemaakt voor: ".$userId."\n";
+			echo "Nieuw bestand aangemaakt voor: '".$userId." (".$firstName." ".$lastName.")'.\n";
 		}
 
 	}
@@ -53,13 +53,14 @@ while (true){
 		case $message == "/start":
 			sendMessage($chatId, "Welkom bij de Telegram bot voor Zermelo! Deze bot werkt ook in groepen.", null, $group);
 			sendMessage($chatId, "Gemaakt door Bas van den Wollenberg (@BasvdW), Candea College.", null, $group);
-// 			sendMessage($chatId, "'/changelog' Als je notificaties wilt ontvangen over veranderingen/toevoegingen in de bot", null, $group);
-			sendMessage($chatId, "Krijg meer info over registreren met /registreer", null, $group);
-			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met /rooster", null, $group);
+// 			sendMessage($chatId, "'/changelog' om notificaties te ontvangen over veranderingen/toevoegingen aan de bot.", null, $group);
+			sendMessage($chatId, "Krijg meer info over registreren met '/registreer'.", null, $group);
+			sendMessage($chatId, "Na het registreren kun je je rooster opvragen met '/rooster'.", null, $group);
+			sendMessage($chatId, "_Deze bot is niet aansprakelijk voor te laat komingen en/of fouten in het rooster._", null, $group);
 		break;
 		
 // 		Commands:
-		case ($message == "/ping"):
+		case $message == "/ping":
 			sendMessage($chatId, "_Pong!_", null, $group);
 		break;
 		case $message == "/restart":
@@ -164,15 +165,17 @@ while (true){
 
 		case $message == "/rooster":
 			$content = file($file);
+			
 			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
 				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId, $group);
 			} else {
 				sendMessage($chatId, "Wil je je rooster van vandaag of morgen?", $messageId.'&reply_markup={"keyboard": [["1. Vandaag","2. Morgen"]],"one_time_keyboard": true,"selective": true,"resize_keyboard": true}', true);
 			}
 		break;
-		case $message == "1. vandaag":
+		case $message == "1. Vandaag":
 			$content = file($file);
 			$leerlingnummer = $content[0];
+			
 			if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
 				sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId, $group);
 			} else {
@@ -204,9 +207,10 @@ while (true){
 				}
 			}
 			break;
-			case $message == "2. morgen":
+			case $message == "2. Morgen":
 				$content = file($file);
 				$leerlingnummer = $content[0];
+				
 				if (!$content[0] || $content[0] == "\n" || !$content[1] || $content[1] == "\n" || $content[2] == "\n" || !$content[2]){
 					sendMessage($chatId, "Je bent nog niet volledig geregistreerd, meer informatie: /registreer", $messageId, $group);
 				} else {
@@ -233,6 +237,50 @@ while (true){
 					}
 				}
 			break;
+			
+// 			Changelog notificaties:
+
+			case 0 === strpos($message, '/changelog'):
+				$content = file($file);
+				@$changelog = explode(" ",$message)[1];
+				
+				if ($userId == "125874268" && $changelog != null){
+					foreach(glob("gebruikers/*") as $file) {
+						if ($file != "gebruikers/geregistreerd.txt")
+							$content = file($file);
+							if ($content[3] == "true" || $content[3] == "true\n"){
+								sendMessage(basename($file, ".txt"), $changelog, $messageId, $group);
+								sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
+								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.");
+							}
+					}
+				} elseif (!$content[3] || $content[3] == "\n"){
+					try {
+							$fp = fopen($file, "w+");
+							$content[3] = "true\n";
+							fwrite($fp, implode($content, ''));
+							fclose($fp);
+							sendMessage($chatId, "Vanaf nu ontvang je notificaties over veranderingen/toevoegingen aan de bot.", $messageId, $group);
+							print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich aangemeld voor de changelog.\n");
+						} catch (Exception $e) {
+							sendMessage($chatId, "Er is iets misgegaan bij het abonneren op notificaties.", $messageId, $group);
+							print_r("Aanmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
+						}
+				} else {
+					try {
+							$fp = fopen($file, "w+");
+							$content[3] = "\n";
+							fwrite($fp, implode($content, ''));
+							fclose($fp);
+							sendMessage($chatId, "Vanaf nu ontvang je *geen* notificaties meer over veranderingen/toevoegingen aan de bot.", $messageId, $group);
+							print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich afgemeld voor de changelog.\n");
+						} catch (Exception $e) {
+							sendMessage($chatId, "Er is iets misgegaan bij het opzeggen van het ontvangen van notificaties.", $messageId, $group);
+							print_r("Afmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
+						}
+				}
+			break;
+			
 	}
 }
 
