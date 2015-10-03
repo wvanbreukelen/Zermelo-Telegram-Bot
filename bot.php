@@ -10,7 +10,7 @@ $getUpdates = $website.'getUpdates';
 
 while (true){
 	// Sleep for one second, so we don't get server flooding :)
-	sleep(1);
+	sleep(2);
 	
 	$result = @file_get_contents($getUpdates);
 	if ($result === false)
@@ -240,9 +240,11 @@ while (true){
 			
 // 			Changelog notificaties:
 
-			case 0 === strpos($message, '/changelog'):
+			case substr($message, 0, 10) == '/changelog':
 				$content = file($file);
-				@$changelog = explode(" ",$message)[1];
+				if (($changelog = strpos($message, " ")) !== false) {
+					$changelog = substr($message, $changelog+1);
+				}
 				
 				if ($userId == "125874268" && $changelog != null){
 					foreach(glob("gebruikers/*") as $file) {
@@ -251,7 +253,7 @@ while (true){
 							if ($content[3] == "true" || $content[3] == "true\n"){
 								sendMessage(basename($file, ".txt"), $changelog, $messageId, $group);
 								sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
-								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.");
+								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.\n");
 							}
 					}
 				} elseif (!$content[3] || $content[3] == "\n"){
