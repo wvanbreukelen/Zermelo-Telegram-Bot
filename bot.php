@@ -10,7 +10,7 @@ $getUpdates = $website.'getUpdates';
 
 while (true){
 	// Sleep for one second, so we don't get server flooding :)
-	sleep(2);
+	sleep(1);
 	
 	$result = @file_get_contents($getUpdates);
 	if ($result === false)
