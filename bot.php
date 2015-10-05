@@ -402,7 +402,7 @@ function rooster($leerlingnummer, $school, $day){
 		list($subject, $teacher, $location, $start, $end, $cancelled) = $value;
 		if (substr($start, 0, 10) == $date){
 			if ($cancelled == 1){
-				$today[] = "X > ".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)." < X";
+				$today[] = "_*".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)."*_";
 			} else {
 				$today[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
 			}
@@ -412,7 +412,7 @@ function rooster($leerlingnummer, $school, $day){
 		list($subject, $teacher, $location, $start, $end, $cancelled) = $value;
 		if (substr($start, 0, 10) == $date1){
 		if ($cancelled == 1){
-				$tomorrow[] = "X > ".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)." < X";
+				$tomorrow[] = "_*".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)."*_";
 			} else {
 				$tomorrow[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
 			}
