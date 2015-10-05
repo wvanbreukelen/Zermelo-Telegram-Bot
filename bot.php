@@ -387,6 +387,7 @@ function rooster($leerlingnummer, $school, $day){
 		$locations[] = $subArray['locations'][0];
 		$start[] = $subArray['start_date'];
 		$end[] = $subArray['end_date'];
+		$cancelled[] = $subArray['cancelled'];
 	}
 	
 	$mi = new MultipleIterator();
@@ -395,17 +396,26 @@ function rooster($leerlingnummer, $school, $day){
 	$mi->attachIterator(new ArrayIterator($locations));
 	$mi->attachIterator(new ArrayIterator($start));
 	$mi->attachIterator(new ArrayIterator($end));
+	$mi->attachIterator(new ArrayIterator($cancelled));
 	
 	foreach ($mi as $value) {
-		list($subject, $teacher, $location, $start, $end) = $value;
+		list($subject, $teacher, $location, $start, $end, $cancelled) = $value;
 		if (substr($start, 0, 10) == $date){
-			$today[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+			if ($cancelled == 1){
+				$today[] = "X > ".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)." < X";
+			} else {
+				$today[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+			}
 		}
 	}
 	foreach ($mi as $value) {
-		list($subject, $teacher, $location, $start, $end) = $value;
+		list($subject, $teacher, $location, $start, $end, $cancelled) = $value;
 		if (substr($start, 0, 10) == $date1){
-			$tomorrow[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+		if ($cancelled == 1){
+				$tomorrow[] = "X > ".strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)." < X";
+			} else {
+				$tomorrow[] = strtoupper($subject)." - ".strtoupper($teacher)." - ".$location." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
+			}
 		}
 	}
 	$today = implode("\n", $today);
