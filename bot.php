@@ -37,7 +37,6 @@ while (true){
 		$fp = fopen($file, "w");
 		if ($fp != false)
 		{
-			// OK to write
 			fwrite($fp, "\n\n\n\n");
 			fclose($fp);
 			echo "Nieuw bestand aangemaakt voor: '".$userId." (".$firstName." ".$lastName.")'.\n";
@@ -69,7 +68,7 @@ while (true){
 				print_r("Bot herstarten...\n");
 				exit(2);
 			} else {
-				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten", null, $group);
+				sendMessage($chatId, "Je hebt niet de rechten om de bot te herstarten.", null, $group);
 			}
 		break;
 		case $message == "/registreer":
@@ -256,6 +255,8 @@ while (true){
 								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.\n");
 							}
 					}
+				} elseif ($changelog != null){
+					sendMessage($chatId, "Je hebt niet de rechten om een changelog bericht te sturen.", $messageId, $group);
 				} elseif (!$content[3] || $content[3] == "\n"){
 					try {
 							$fp = fopen($file, "w+");
