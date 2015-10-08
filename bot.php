@@ -9,7 +9,6 @@ $date1 = date("d/m/Y", strtotime("tomorrow"));
 $getUpdates = $website.'getUpdates';
 
 while (true){
-	// Sleep for one second, so we don't get server flooding :)
 	sleep(1);
 	
 	$result = @file_get_contents($getUpdates);
@@ -246,15 +245,18 @@ while (true){
 				}
 				
 				if ($userId == "125874268" && $changelog != null){
+					$i = 0;
 					foreach(glob("gebruikers/*") as $file) {
 						if ($file != "gebruikers/geregistreerd.txt")
 							$content = file($file);
 							if ($content[3] == "true" || $content[3] == "true\n"){
 								sendMessage(basename($file, ".txt"), $changelog, $messageId, $group);
-								sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
+// 								sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
 								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.\n");
+								$i++;
 							}
 					}
+					sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar ".$i." mensen.", $messageId, $group);
 				} elseif ($changelog != null){
 					sendMessage($chatId, "Je hebt niet de rechten om een changelog bericht te sturen.", $messageId, $group);
 				} elseif (!$content[3] || $content[3] == "\n"){
