@@ -385,9 +385,9 @@ function rooster($leerlingnummer, $school, $day){
 	$tomorrow = array();
 	
 	foreach($rooster as $subArray) {
-		$subjects[] = $subArray['subjects'][0];
-		$teachers[] = $subArray['teachers'][0];
-		$locations[] = $subArray['locations'][0];
+		$subjects[] = implode(" ", $subArray['subjects']);
+		$teachers[] = implode(" ", $subArray['teachers']);
+		$locations[] = implode(" ", $subArray['locations']);
 		$start[] = $subArray['start_date'];
 		$end[] = $subArray['end_date'];
 		$cancelled[] = $subArray['cancelled'];
@@ -411,6 +411,7 @@ function rooster($leerlingnummer, $school, $day){
 			}
 		}
 	}
+	
 	foreach ($mi as $value) {
 		list($subject, $teacher, $location, $start, $end, $cancelled) = $value;
 		if (substr($start, 0, 10) == $date1){
@@ -421,8 +422,10 @@ function rooster($leerlingnummer, $school, $day){
 			}
 		}
 	}
+	
 	$today = implode("\n", $today);
 	$tomorrow = implode("\n", $tomorrow);
+	
 	if ($day == "vandaag"){
 		sendMessage($chatId, "*Jouw rooster van vandaag:*\n".$today, $messageId, $group);
 	} elseif ($day == "morgen"){
@@ -432,7 +435,9 @@ function rooster($leerlingnummer, $school, $day){
 
 function sendMessage($chatId, $message, $messageId, $group){
 	global $website;
+	
 	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	
 	if ($group == true){
 		file_get_contents($sendMessage = $website."sendMessage?chat_id=".$chatId."&text=".urlencode($message)."&reply_to_message_id=".$messageId."&parse_mode=Markdown");
 	} else {
@@ -442,7 +447,9 @@ function sendMessage($chatId, $message, $messageId, $group){
 
 function sendPhoto($chatId, $photo, $caption, $messageId, $group){
 	global $website;
+	
 	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	
 	if ($group == true){
 		$sendPhoto = $website."sendPhoto?chat_id=".$chatId."&photo=".$photo."&caption=".$caption."&reply_to_message_id=".$messageId;
 	} else {
@@ -453,7 +460,9 @@ function sendPhoto($chatId, $photo, $caption, $messageId, $group){
 
 function sendSticker($chatId, $sticker, $messageId, $group){
 	global $website;
+	
 	file_get_contents($website."sendChatAction?chat_id=".$chatId."&action=typing");
+	
 	if ($group == true){
 		$sendSticker = $website."sendSticker?chat_id=".$chatId."&sticker=".$sticker."&reply_to_message_id=".$messageId;
 	} else {
