@@ -8,7 +8,7 @@ $startTime = time();
 $getUpdates = $website.'getUpdates';
 
 while (true){
-	sleep(1);
+	usleep(500000);
 	
 	$result = @file_get_contents($getUpdates);
 	if ($result === false)
