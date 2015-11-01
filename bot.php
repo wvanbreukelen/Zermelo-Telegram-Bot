@@ -289,7 +289,7 @@ function getMessage($array){
 		if (isset($array[$key]["message"]["date"])){
 			if ($array[$key]["message"]["date"] > $startTime){
 				if (isset($array[$key]["message"]["text"])){
-					return $array[$key]["message"]["text"];
+					return trim($array[$key]["message"]["text"], "@ZermeloBot");
 				}
 			}
 		}
@@ -311,7 +311,6 @@ function getUserId($array){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
 		return $array[$key]["message"]["from"]["id"];
-// 		}
 	}
 }
 
@@ -324,7 +323,6 @@ function getIfGroup($array){
 		} else {
 			return false;
 		}
-// 		}
 	}
 }
 
