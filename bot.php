@@ -412,7 +412,6 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 					$start[] = $subArray["start_date"];
 					$end[] = $subArray["end_date"];
 					$cancelled[] = $subArray["cancelled"];
-					$type[] = $subArray["activity"];
 				}
 				
 				$mi = new MultipleIterator();
@@ -425,8 +424,16 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 				
 				foreach ($mi as $value) {
 					list ($subjects, $teachers, $locations, $start, $end, $cancelled) = $value;
-					$subjects = strtoupper($subjects)." - ";
-					$teachers = strtoupper($teachers)." - ";
+					
+					if ($subjects != ""){
+						$subjects = strtoupper($subjects);
+					}
+					if ($teachers != ""){
+						$teachers = " - ".strtoupper($teachers);
+					}
+					if ($locations != ""){
+						$locations = " - ".strtoupper($locations);
+					}
 					
 					if (substr($start, 0, 10) == $date){
 						if ($cancelled == 1){
@@ -455,6 +462,7 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 						sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
 					break;
 				}
+				print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 			} else {
 				register_zermelo_api();
 				$zermelo = new ZermeloAPI($school);
@@ -495,7 +503,7 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 						$teachers = " - ".strtoupper($teachers);
 					}
 					if ($locations != ""){
-						$locations = " - ".strtoupper($locations)." | ";
+						$locations = " - ".strtoupper($locations);
 					}
 					
 					if (substr($start, 0, 10) == $date){
