@@ -212,54 +212,55 @@ while (true){
 			
 // 			Changelog notificaties:
 
-			case substr($message, 0, 10) == '/changelog':
-				sendMessage($chatId, "Het changelog systeem is nu een kanaal:\nhttps://telegram.me/zermelo", $messageId, $group);
-// 				$content = file($file);
-// 				if (($changelog = strpos($message, " ")) !== false) {
-// 					$changelog = substr($message, $changelog+1);
-// 				}
-				
-// 				if ($userId == "125874268" && $changelog != null){
-// 					$i = 0;
-// 					foreach(glob("gebruikers/*") as $file) {
-// 						if ($file != "gebruikers/geregistreerd.txt")
-// 							$content = file($file);
-// 							if ($content[3] == "true" || $content[3] == "true\n"){
-// 								sendMessage(basename($file, ".txt"), $changelog, $messageId, $group);
-// // 								sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
-// 								print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.\n");
-// 								$i++;
-// 							}
-// 					}
-// 					sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar ".$i." mensen.", $messageId, $group);
-// 				} elseif ($changelog != null){
-// 					sendMessage($chatId, "Je hebt niet de rechten om een changelog bericht te sturen.", $messageId, $group);
-// 				} elseif (!$content[3] || $content[3] == "\n"){
-// 					try {
-// 							$fp = fopen($file, "w+");
-// 							$content[3] = "true\n";
-// 							fwrite($fp, implode($content, ''));
-// 							fclose($fp);
-// 							sendMessage($chatId, "Vanaf nu ontvang je notificaties over veranderingen/toevoegingen aan de bot.", $messageId, $group);
-// 							print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich aangemeld voor de changelog.\n");
-// 						} catch (Exception $e) {
-// 							sendMessage($chatId, "Er is iets misgegaan bij het abonneren op notificaties.", $messageId, $group);
-// 							print_r("Aanmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
-// 						}
-// 				} else {
-// 					try {
-// 							$fp = fopen($file, "w+");
-// 							$content[3] = "\n";
-// 							fwrite($fp, implode($content, ''));
-// 							fclose($fp);
-// 							sendMessage($chatId, "Vanaf nu ontvang je *geen* notificaties meer over veranderingen/toevoegingen aan de bot.", $messageId, $group);
-// 							print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich afgemeld voor de changelog.\n");
-// 						} catch (Exception $e) {
-// 							sendMessage($chatId, "Er is iets misgegaan bij het opzeggen van het ontvangen van notificaties.", $messageId, $group);
-// 							print_r("Afmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
-// 						}
-// 				}
-			break;
+		case substr($message, 0, 10) == '/changelog':
+			sendMessage($chatId, "Het changelog systeem is nu een kanaal:\nhttps://telegram.me/zermelo", $messageId, $group);
+/*			$content = file($file);
+			if (($changelog = strpos($message, " ")) !== false) {
+				$changelog = substr($message, $changelog+1);
+			}
+			
+			if ($userId == "125874268" && $changelog != null){
+				$i = 0;
+				foreach(glob("gebruikers/*") as $file) {
+					if ($file != "gebruikers/geregistreerd.txt")
+						$content = file($file);
+						if ($content[3] == "true" || $content[3] == "true\n"){
+							sendMessage(basename($file, ".txt"), $changelog, $messageId, $group);
+ 							sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.", $messageId, $group);
+							print_r("'".$changelog."' succesvol verstuurd naar: '".basename($file, ".txt")."'.\n");
+							$i++;
+						}
+				}
+				sendMessage($chatId, "'".$changelog."' succesvol verstuurd naar ".$i." mensen.", $messageId, $group);
+			} elseif ($changelog != null){
+				sendMessage($chatId, "Je hebt niet de rechten om een changelog bericht te sturen.", $messageId, $group);
+			} elseif (!$content[3] || $content[3] == "\n"){
+				try {
+						$fp = fopen($file, "w+");
+						$content[3] = "true\n";
+						fwrite($fp, implode($content, ''));
+						fclose($fp);
+						sendMessage($chatId, "Vanaf nu ontvang je notificaties over veranderingen/toevoegingen aan de bot.", $messageId, $group);
+						print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich aangemeld voor de changelog.\n");
+					} catch (Exception $e) {
+						sendMessage($chatId, "Er is iets misgegaan bij het abonneren op notificaties.", $messageId, $group);
+						print_r("Aanmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
+					}
+			} else {
+				try {
+						$fp = fopen($file, "w+");
+						$content[3] = "\n";
+						fwrite($fp, implode($content, ''));
+						fclose($fp);
+						sendMessage($chatId, "Vanaf nu ontvang je *geen* notificaties meer over veranderingen/toevoegingen aan de bot.", $messageId, $group);
+						print_r("'".$userId." (".$firstName." ".$lastName.")' heeft zich afgemeld voor de changelog.\n");
+					} catch (Exception $e) {
+						sendMessage($chatId, "Er is iets misgegaan bij het opzeggen van het ontvangen van notificaties.", $messageId, $group);
+						print_r("Afmelden van '".$userId." (".$firstName." ".$lastName.")' voor de changelog mislukt.\n");
+					}
+			}
+		break;
+*/
 	}
 }
 
