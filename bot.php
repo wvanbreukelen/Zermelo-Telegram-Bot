@@ -392,147 +392,75 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 					sendMessage($chatId, "Er is iets migegaan bij het ophalen van de token voor Zermelo, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId, $group);
 					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
 				}
+			}
+			register_zermelo_api();
+			$zermelo = new ZermeloAPI($school);
+			
+			$rooster = $zermelo->getStudentGrid($leerlingnummer);
+			
+			$subjectss = array();
+			$teachers = array();
+			$locations = array();
+			$start = array();
+			$end = array();
+			$timetable = array();
+			
+			foreach($rooster as $subArray) {
+				$subjectss[] = implode(" ", $subArray["subjects"]);
+				$teachers[] = implode(" ", $subArray["teachers"]);
+				$locations[] = implode(" ", $subArray["locations"]);
+				$start[] = $subArray["start_date"];
+				$end[] = $subArray["end_date"];
+				$cancelled[] = $subArray["cancelled"];
+			}
+			
+			$mi = new MultipleIterator();
+			$mi->attachIterator(new ArrayIterator($subjectss));
+			$mi->attachIterator(new ArrayIterator($teachers));
+			$mi->attachIterator(new ArrayIterator($locations));
+			$mi->attachIterator(new ArrayIterator($start));
+			$mi->attachIterator(new ArrayIterator($end));
+			$mi->attachIterator(new ArrayIterator($cancelled));
+			
+			foreach ($mi as $value) {
+				list ($subjects, $teachers, $locations, $start, $end, $cancelled) = $value;
 				
-				register_zermelo_api();
-				$zermelo = new ZermeloAPI($school);
-				
-				$rooster = $zermelo->getStudentGrid($leerlingnummer);
-				
-				$subjectss = array();
-				$teachers = array();
-				$locations = array();
-				$start = array();
-				$end = array();
-				$timetable = array();
-				
-				foreach($rooster as $subArray) {
-					$subjectss[] = implode(" ", $subArray["subjects"]);
-					$teachers[] = implode(" ", $subArray["teachers"]);
-					$locations[] = implode(" ", $subArray["locations"]);
-					$start[] = $subArray["start_date"];
-					$end[] = $subArray["end_date"];
-					$cancelled[] = $subArray["cancelled"];
+				if ($subjects != ""){
+					$subjects = strtoupper($subjects);
+				}
+				if ($teachers != ""){
+					$teachers = " - ".strtoupper($teachers);
+				}
+				if ($locations != ""){
+					$locations = " - ".strtoupper($locations);
 				}
 				
-				$mi = new MultipleIterator();
-				$mi->attachIterator(new ArrayIterator($subjectss));
-				$mi->attachIterator(new ArrayIterator($teachers));
-				$mi->attachIterator(new ArrayIterator($locations));
-				$mi->attachIterator(new ArrayIterator($start));
-				$mi->attachIterator(new ArrayIterator($end));
-				$mi->attachIterator(new ArrayIterator($cancelled));
-				
-				foreach ($mi as $value) {
-					list ($subjects, $teachers, $locations, $start, $end, $cancelled) = $value;
-					
-					if ($subjects != ""){
-						$subjects = strtoupper($subjects);
-					}
-					if ($teachers != ""){
-						$teachers = " - ".strtoupper($teachers);
-					}
-					if ($locations != ""){
-						$locations = " - ".strtoupper($locations);
-					}
-					
-					if (substr($start, 0, 10) == $date){
-						if ($cancelled == 1){
-							$timetable[] = "_*".$subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)."*_";
-						} else {
-							$timetable[] = $subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
-						}
+				if (substr($start, 0, 10) == $date){
+					if ($cancelled == 1){
+						$timetable[] = "_*".$subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)."*_";
+					} else {
+						$timetable[] = $subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
 					}
 				}
-				$timetable = implode("\n", $timetable);
-				
-				switch($day){
-					case "maandag":
-						sendMessage($chatId, "*Jouw rooster van maandag:*\n".$timetable, $messageId, $group);
-					break;
-					case "dinsdag":
-						sendMessage($chatId, "*Jouw rooster voor dinsdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "woensdag":
-						sendMessage($chatId, "*Jouw rooster voor woensdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "donderdag":
-						sendMessage($chatId, "*Jouw rooster voor donderdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "vrijdag":
-						sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
-					break;
-				}
-				print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
-			} else {
-				register_zermelo_api();
-				$zermelo = new ZermeloAPI($school);
-				
-				$rooster = $zermelo->getStudentGrid($leerlingnummer);
-				
-				$subjectss = array();
-				$teachers = array();
-				$locations = array();
-				$start = array();
-				$end = array();
-				$timetable = array();
-				
-				foreach($rooster as $subArray) {
-					$subjectss[] = implode(" ", $subArray["subjects"]);
-					$teachers[] = implode(" ", $subArray["teachers"]);
-					$locations[] = implode(" ", $subArray["locations"]);
-					$start[] = $subArray["start_date"];
-					$end[] = $subArray["end_date"];
-					$cancelled[] = $subArray["cancelled"];
-				}
-				
-				$mi = new MultipleIterator();
-				$mi->attachIterator(new ArrayIterator($subjectss));
-				$mi->attachIterator(new ArrayIterator($teachers));
-				$mi->attachIterator(new ArrayIterator($locations));
-				$mi->attachIterator(new ArrayIterator($start));
-				$mi->attachIterator(new ArrayIterator($end));
-				$mi->attachIterator(new ArrayIterator($cancelled));
-				
-				foreach ($mi as $value) {
-					list ($subjects, $teachers, $locations, $start, $end, $cancelled) = $value;
-					
-					if ($subjects != ""){
-						$subjects = strtoupper($subjects);
-					}
-					if ($teachers != ""){
-						$teachers = " - ".strtoupper($teachers);
-					}
-					if ($locations != ""){
-						$locations = " - ".strtoupper($locations);
-					}
-					
-					if (substr($start, 0, 10) == $date){
-						if ($cancelled == 1){
-							$timetable[] = "_*".$subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15)."*_";
-						} else {
-							$timetable[] = $subjects.$teachers.$locations." | ".substr($start, 11, 15)." - ".substr($end, 11, 15);
-						}
-					}
-				}
-				$timetable = implode("\n", $timetable);
-				
-				switch($day){
-					case "maandag":
-						sendMessage($chatId, "*Jouw rooster van maandag:*\n".$timetable, $messageId, $group);
-					break;
-					case "dinsdag":
-						sendMessage($chatId, "*Jouw rooster voor dinsdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "woensdag":
-						sendMessage($chatId, "*Jouw rooster voor woensdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "donderdag":
-						sendMessage($chatId, "*Jouw rooster voor donderdag:*\n".$timetable, $messageId, $group);
-					break;
-					case "vrijdag":
-						sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
-					break;
-				}
+			}
+			$timetable = implode("\n", $timetable);
+			
+			switch($day){
+				case "maandag":
+					sendMessage($chatId, "*Jouw rooster van maandag:*\n".$timetable, $messageId, $group);
+				break;
+				case "dinsdag":
+					sendMessage($chatId, "*Jouw rooster voor dinsdag:*\n".$timetable, $messageId, $group);
+				break;
+				case "woensdag":
+					sendMessage($chatId, "*Jouw rooster voor woensdag:*\n".$timetable, $messageId, $group);
+				break;
+				case "donderdag":
+					sendMessage($chatId, "*Jouw rooster voor donderdag:*\n".$timetable, $messageId, $group);
+				break;
+				case "vrijdag":
+					sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
+				break;
 			}
 			print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 		} catch (Exception $e){
