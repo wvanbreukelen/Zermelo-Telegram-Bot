@@ -289,7 +289,7 @@ function getMessage($array){
 		if (isset($array[$key]["message"]["date"])){
 			if ($array[$key]["message"]["date"] > $startTime){
 				if (isset($array[$key]["message"]["text"])){
-					return trim($array[$key]["message"]["text"], "@ZermeloBot");
+					return str_replace("@ZermeloBot", "", $array[$key]["message"]["text"]);
 				}
 			}
 		}
