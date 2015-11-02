@@ -1,5 +1,10 @@
 <?php
-require 'ZermeloRoosterPHP/custom_autoload.php';
+if (!file_exists('ZermeloRoosterPHP'))
+{
+      exit("Installeer alsjeblieft eerst Zermelo-Telegram-Bot!");
+}
+require 'ZermeloRoosterPHP/Cache.php';
+require 'ZermeloRoosterPHP/Zermelo.php';
 require 'config.php';
 
 date_default_timezone_set("Europe/Amsterdam");
@@ -383,7 +388,7 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 		try {
 			if (strpos(file_get_contents("gebruikers/geregistreerd.txt"), $leerlingnummer) === false) {
 				try {
-					register_zermelo_api();
+					// register_zermelo_api();
 					$zermelo = new ZermeloAPI($school);
 	
 					$zermelo->grabAccessToken($leerlingnummer, $code);
@@ -391,10 +396,10 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 					file_put_contents("gebruikers/geregistreerd.txt", $leerlingnummer.PHP_EOL , FILE_APPEND);
 				} catch (Exception $e){
 					sendMessage($chatId, "Er is iets migegaan bij het ophalen van de token voor Zermelo, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId, $group);
-					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt.\n");
+					print_r("Ophalen rooster '".$userId." (".$firstName." ".$lastName.")' mislukt. Fout:\n".$e->getMessage());
 				}
 			}
-			register_zermelo_api();
+			// register_zermelo_api();
 			$zermelo = new ZermeloAPI($school);
 			
 			$rooster = $zermelo->getStudentGrid($leerlingnummer);
