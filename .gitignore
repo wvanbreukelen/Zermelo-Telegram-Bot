@@ -5,6 +5,7 @@
 /.sync
 
 config.php
+test.txt
 /gebruikers
 
 cache.json
