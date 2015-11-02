@@ -28,6 +28,10 @@ echo "Sample configuratie bestand overzetten..."
 
 cp config_sample.php config.php
 
+echo "Cache.json bestand aanmaken..."
+
+touch cache.json
+
 #echo "<?php
 #
 #$token = '<token>';
