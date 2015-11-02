@@ -24,6 +24,17 @@ echo "Mappenstructuur aanmaken..."
 mkdir gebruikers
 touch gebruikers/geregistreerd.txt
 
+echo "Sample configuratie bestand overzetten..."
+
+cp config_sample.php config.php
+
+#echo "<?php
+#
+#$token = '<token>';
+#$website = 'https://api.telegram.org/bot'.$token.'/';
+#
+#" > config.php
+
 echo "Klaar!"
 
 echo "Veel plezier met Zermelo-Telegram-Bot!"
