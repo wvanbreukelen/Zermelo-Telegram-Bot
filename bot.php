@@ -451,23 +451,7 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 			}
 			$timetable = implode("\n", $timetable);
 			
-			switch($day){
-				case "maandag":
-					sendMessage($chatId, "*Jouw rooster van maandag:*\n".$timetable, $messageId, $group);
-				break;
-				case "dinsdag":
-					sendMessage($chatId, "*Jouw rooster voor dinsdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "woensdag":
-					sendMessage($chatId, "*Jouw rooster voor woensdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "donderdag":
-					sendMessage($chatId, "*Jouw rooster voor donderdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "vrijdag":
-					sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
-				break;
-			}
+			sendMessage($chatId, "*Jouw rooster van ".$day.":*\n".$timetable, $messageId, $group);
 			print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 		} catch (Exception $e){
 			sendMessage($chatId, "Er is iets migegaan bij het ophalen/versturen van je rooster, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId, $group);
