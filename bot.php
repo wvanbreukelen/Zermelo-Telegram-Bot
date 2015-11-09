@@ -13,8 +13,6 @@ $startTime = time();
 $getUpdates = $website.'getUpdates';
 
 while (true){
-	usleep(500000);
-	
 	$result = @file_get_contents($getUpdates);
 	if ($result === false)
 	{
