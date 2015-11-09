@@ -14,8 +14,7 @@ $getUpdates = $website.'getUpdates';
 
 while (true){
 	$result = @file_get_contents($getUpdates);
-	if ($result === false)
-	{
+	if ($result === false) {
 	     echo "Updates krijgen mislukt.\n";
 	}
 	$result = json_decode($result, true);
@@ -112,7 +111,7 @@ while (true){
 				}
 		break;
 		
-		case 0 === strpos($message, '/code'):
+		case 0 === strpos($message, "/code"):
 			$content = file($file);
 			
 			@$code = explode(" ",$message)[1];
@@ -136,7 +135,7 @@ while (true){
 			}
 		break;
 		
-		case 0 === strpos($message, '/school'):
+		case 0 === strpos($message, "/school"):
 			$content = file($file);
 			
 			@$school = explode(" ",$message)[1];
@@ -215,7 +214,7 @@ while (true){
 			
 // 			Changelog notificaties:
 
-		case substr($message, 0, 10) == '/changelog':
+		case $message == "/changelog":
 			sendMessage($chatId, "Het changelog systeem is nu een kanaal:\nhttps://telegram.me/zermelo", $messageId, $group);
 /*			$content = file($file);
 			if (($changelog = strpos($message, " ")) !== false) {
@@ -272,7 +271,9 @@ function getOffset($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["update_id"];
+		if (isset($array[$key]["update_id"])){
+			return $array[$key]["update_id"];
+		}
 	}
 }
 
@@ -280,7 +281,9 @@ function getChatId($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["message"]["chat"]["id"];
+		if (isset($array[$key]["message"]["chat"]["id"])){
+			return $array[$key]["message"]["chat"]["id"];
+		}
 	}
 }
 
@@ -314,7 +317,9 @@ function getUserId($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["message"]["from"]["id"];
+		if (isset($array[$key]["message"]["from"]["id"])){
+			return $array[$key]["message"]["from"]["id"];
+		}
 	}
 }
 
@@ -322,7 +327,7 @@ function getIfGroup($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		if (isset($array[$key]["message"]["chat"]["title"])){
+		if (isset($array[$key]["message"]["chat"]["type"]) && $array[$key]["message"]["chat"]["type"] == "group"){
 			return true;
 		} else {
 			return false;
