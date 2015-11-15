@@ -13,11 +13,8 @@ $startTime = time();
 $getUpdates = $website.'getUpdates';
 
 while (true){
-	usleep(500000);
-	
 	$result = @file_get_contents($getUpdates);
-	if ($result === false)
-	{
+	if ($result === false) {
 	     echo "Updates krijgen mislukt.\n";
 	}
 	$result = json_decode($result, true);
@@ -114,7 +111,7 @@ while (true){
 				}
 		break;
 		
-		case 0 === strpos($message, '/code'):
+		case 0 === strpos($message, "/code"):
 			$content = file($file);
 			
 			@$code = explode(" ",$message)[1];
@@ -138,7 +135,7 @@ while (true){
 			}
 		break;
 		
-		case 0 === strpos($message, '/school'):
+		case 0 === strpos($message, "/school"):
 			$content = file($file);
 			
 			@$school = explode(" ",$message)[1];
@@ -217,7 +214,7 @@ while (true){
 			
 // 			Changelog notificaties:
 
-		case substr($message, 0, 10) == '/changelog':
+		case $message == "/changelog":
 			sendMessage($chatId, "Het changelog systeem is nu een kanaal:\nhttps://telegram.me/zermelo", $messageId, $group);
 /*			$content = file($file);
 			if (($changelog = strpos($message, " ")) !== false) {
@@ -274,7 +271,9 @@ function getOffset($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["update_id"];
+		if (isset($array[$key]["update_id"])){
+			return $array[$key]["update_id"];
+		}
 	}
 }
 
@@ -282,7 +281,9 @@ function getChatId($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["message"]["chat"]["id"];
+		if (isset($array[$key]["message"]["chat"]["id"])){
+			return $array[$key]["message"]["chat"]["id"];
+		}
 	}
 }
 
@@ -316,7 +317,9 @@ function getUserId($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		return $array[$key]["message"]["from"]["id"];
+		if (isset($array[$key]["message"]["from"]["id"])){
+			return $array[$key]["message"]["from"]["id"];
+		}
 	}
 }
 
@@ -324,7 +327,7 @@ function getIfGroup($array){
 	if ($array != null){
 		$keys = array_keys($array);
 		$key = array_shift($keys);
-		if (isset($array[$key]["message"]["chat"]["title"])){
+		if (isset($array[$key]["message"]["chat"]["type"]) && $array[$key]["message"]["chat"]["type"] == "group"){
 			return true;
 		} else {
 			return false;
@@ -451,23 +454,7 @@ function getTimetable($leerlingnummer, $school, $date, $day){
 			}
 			$timetable = implode("\n", $timetable);
 			
-			switch($day){
-				case "maandag":
-					sendMessage($chatId, "*Jouw rooster van maandag:*\n".$timetable, $messageId, $group);
-				break;
-				case "dinsdag":
-					sendMessage($chatId, "*Jouw rooster voor dinsdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "woensdag":
-					sendMessage($chatId, "*Jouw rooster voor woensdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "donderdag":
-					sendMessage($chatId, "*Jouw rooster voor donderdag:*\n".$timetable, $messageId, $group);
-				break;
-				case "vrijdag":
-					sendMessage($chatId, "*Jouw rooster voor vrijdag:*\n".$timetable, $messageId, $group);
-				break;
-			}
+			sendMessage($chatId, "*Jouw rooster van ".$day.":*\n".$timetable, $messageId, $group);
 			print_r("Rooster van '".$userId." (".$firstName." ".$lastName.")' succesvol opgehaald.\n");
 		} catch (Exception $e){
 			sendMessage($chatId, "Er is iets migegaan bij het ophalen/versturen van je rooster, stuur je leerlingnummer/school en/of een nieuwe appcode van het Zermelo portaal opnieuw.", $messageId, $group);

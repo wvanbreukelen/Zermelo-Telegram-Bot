@@ -1,4 +1,4 @@
-# Zermelo Telegram Bot (Test)
+# Zermelo Telegram Bot (Beta)
 Een Telegram bot waarmee je rooster kunt opvragen (met behulp van ZermeloRoosterPHP).
 
 Toch maar voor PHP gegaan, om het gewoon maar 's uit te proberen :stuck_out_tongue_winking_eye:.
